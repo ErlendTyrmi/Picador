@@ -15,7 +15,7 @@
     <children>
         <HBox id="mainBox" maxHeight="690" maxWidth="1024" minHeight="690" minWidth="1024" prefHeight="690" prefWidth="1024">
             <children>
-                <GridPane id="gameBoard" gridLinesVisible="true" styleClass=".boarded">
+                <GridPane id="gameBoard" styleClass=".boarded">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="120.0" prefWidth="120.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="90.0" prefWidth="90.0" />
@@ -72,7 +72,7 @@
                                         <Image url="@../images/dog-money.jpg" />
                                     </image>
                                 </ImageView>
-                                    <Text id="dogMoney" fx:id="dogMoney" text="1000" />
+                                    <Text id="dogMoney" fx:id="dogMoney">1000</Text>
                                 </HBox>
                                 <HBox>
                                 <ImageView>
@@ -80,7 +80,7 @@
                                         <Image url="@../images/cat-money.jpg" />
                                     </image>
                                 </ImageView>
-                                    <Text id="catMoney" fx:id="catMoney" text="1000" />
+                                    <Text id="catMoney" fx:id="catMoney">1000</Text>
                                 </HBox>
                                 <HBox>
                                 <ImageView>
@@ -88,7 +88,7 @@
                                         <Image url="@../images/car-money.jpg" />
                                     </image>
                                 </ImageView>
-                                    <Text id="carMoney" fx:id="carMoney" text="1000"></Text>
+                                    <Text id="carMoney" fx:id="carMoney">1000</Text>
                                 </HBox>
                                 <HBox>
                                 <ImageView>
@@ -96,7 +96,7 @@
                                         <Image url="@../images/boat-money.jpg" />
                                     </image>
                                 </ImageView>
-                                    <Text id="boatMoney" fx:id="boatMoney" text="1000"></Text>
+                                    <Text id="boatMoney" fx:id="boatMoney">1000</Text>
                                 </HBox>
                             </children>
                         </VBox>
