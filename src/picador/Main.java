@@ -14,7 +14,9 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("picador.fxml"));
         primaryStage.setTitle("PICADOR the board game");
         primaryStage.setScene(new Scene(root));
-        primaryStage.setFullScreen(true);
+        primaryStage.setMinWidth(1024);
+        primaryStage.setMinHeight(710);
+        primaryStage.setMaximized(true);
         primaryStage.show();
     }
 

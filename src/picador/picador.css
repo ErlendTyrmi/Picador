@@ -1,6 +1,17 @@
 #gameBoard{
     -fx-background-image: url("../images/monopoly-board-690.png");
+    -fx-background-position:center;
+    -fx-border-color: #ddd;
+    -fx-border-width:10px;
 }
 #table{
     -fx-background-image: url("../images/wood.jpg");
+}
+
+#dogMoney, #catMoney, #carMoney, #boatMoney{
+    -fx-font-size:20;
+}
+
+#card{
+    -fx-background-color:white;
 }
