@@ -1,0 +1,6 @@
+#gameBoard{
+    -fx-background-image: url("../images/monopoly-board-690.png");
+}
+#table{
+    -fx-background-image: url("../images/wood.jpg");
+}

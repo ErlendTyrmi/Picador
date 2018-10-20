@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<Pane id="table" stylesheets="@picador.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <HBox id="mainBox" maxHeight="690" maxWidth="1024" minHeight="690" minWidth="1024" prefHeight="690" prefWidth="1024">
+            <children>
+                <GridPane id="gameBoard" gridLinesVisible="true" styleClass=".boarded">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="120.0" prefWidth="120.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="90.0" prefWidth="90.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="90.0" prefWidth="90.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="90.0" prefWidth="90.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="90.0" prefWidth="90.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="90.0" prefWidth="90.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="120.0" prefWidth="120.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="120.0" prefHeight="120.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="90.0" prefHeight="90.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="90.0" prefHeight="90.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="90.0" prefHeight="90.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="90.0" prefHeight="90.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="90.0" prefHeight="90.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="120.0" prefHeight="120.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <StackPane id="zero" prefHeight="150.0" prefWidth="88.0" GridPane.columnIndex="6" GridPane.rowIndex="6" />
+                        <StackPane id="one" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="6" />
+                        <StackPane id="two" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+                        <StackPane id="three" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+                        <StackPane id="four" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                        <StackPane id="five" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <StackPane id="six" prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="6" />
+                        <StackPane id="seven" prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="5" />
+                        <StackPane id="eight" prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="4" />
+                        <StackPane id="nine" prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="3" />
+                        <StackPane id="ten" prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="2" />
+                        <StackPane id="eleven" prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="1" />
+                        <StackPane id="twelve" prefHeight="150.0" prefWidth="200.0" />
+                        <StackPane id="thirteen" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" />
+                        <StackPane id="fourteen" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" />
+                        <StackPane id="fifteen" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="3" />
+                        <StackPane id="sixteen" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="4" />
+                        <StackPane id="seventeen" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="5" />
+                        <StackPane id="eighteen" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="6" />
+                        <StackPane id="nineteen" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+                        <StackPane id="twenty" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+                        <StackPane id="twentyone" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+                        <StackPane id="rwntytwo" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="4" />
+                        <StackPane id="twentythree" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="5" />
+                    </children>
+                </GridPane>
+                <VBox id="controlsBox" prefHeight="200.0" prefWidth="334">
+                    <children>
+                        <VBox id="accountBox" prefHeight="400.0" prefWidth="334.0" style="-fx-background-color: red;">
+                            <children>
+                                <HBox>
+                                <ImageView>
+
+                                    <image>
+                                        <Image url="@../images/dog-money.jpg" />
+                                    </image>
+                                </ImageView>
+                                    <Text id="dogMoney" fx:id="dogMoney" text="1000" />
+                                </HBox>
+                                <HBox>
+                                <ImageView>
+                                    <image>
+                                        <Image url="@../images/cat-money.jpg" />
+                                    </image>
+                                </ImageView>
+                                    <Text id="catMoney" fx:id="catMoney" text="1000" />
+                                </HBox>
+                                <HBox>
+                                <ImageView>
+                                    <image>
+                                        <Image url="@../images/car-money.jpg" />
+                                    </image>
+                                </ImageView>
+                                    <Text id="carMoney" fx:id="carMoney" text="1000"></Text>
+                                </HBox>
+                                <HBox>
+                                <ImageView>
+                                    <image>
+                                        <Image url="@../images/boat-money.jpg" />
+                                    </image>
+                                </ImageView>
+                                    <Text id="boatMoney" fx:id="boatMoney" text="1000"></Text>
+                                </HBox>
+                            </children>
+                        </VBox>
+                        <HBox id="diceBox" prefHeight="290.0" prefWidth="334.0" style="-fx-background-color: blue;" />
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </children>
+</Pane>
