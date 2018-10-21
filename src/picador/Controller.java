@@ -44,9 +44,7 @@ public class Controller{
     public FlowPane card;
 
     public void showText(String text){
-        message = new Text("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaggg\n" +
-                "ggggggggggggkfgjkfgjfkgjfffffffffffffffffffffffff\n" +
-                "sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss\nm\nb\nkkk");
+        message = new Text("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         card = new FlowPane(message);
     }
 

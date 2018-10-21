@@ -5,7 +5,28 @@
     -fx-border-width:10px;
 }
 #table{
-    -fx-background-image: url("../images/wood.jpg");
+    -fx-background-image: url("../images/perstorp.png");
+}
+
+#dogMoneyBox{
+    -fx-background-image: url("../images/dog-money.jpg");
+    -fx-background-position:left;
+    -fx-background-repeat: no-repeat;
+             }
+#catMoneyBox{
+    -fx-background-image: url("../images/cat-money.jpg");
+    -fx-background-position:left;
+    -fx-background-repeat: no-repeat;
+}
+#carMoneyBox{
+    -fx-background-image: url("../images/car-money.jpg");
+    -fx-background-position:left;
+    -fx-background-repeat: no-repeat;
+}
+#boatMoneyBox{
+    -fx-background-image: url("../images/boat-money.jpg");
+    -fx-background-position:left;
+    -fx-background-repeat: no-repeat;
 }
 
 #dogMoney, #catMoney, #carMoney, #boatMoney{

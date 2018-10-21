@@ -40,36 +40,131 @@
                     </rowConstraints>
                     <children>
                         <StackPane id="zero" prefHeight="90.0" prefWidth="90.0" GridPane.columnIndex="6" GridPane.rowIndex="6" />
-                        <StackPane id="one" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="5" GridPane.rowIndex="6" />
-                        <StackPane id="two" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="4" GridPane.rowIndex="6" />
-                        <StackPane id="three" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-                        <StackPane id="four" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-                        <StackPane id="five" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <StackPane id="one" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="5" GridPane.rowIndex="6">
+                     <GridPane.margin>
+                        <Insets top="30.0" />
+                     </GridPane.margin>
+                     <children>
+                        <ImageView>
+                           <image>
+                              <Image url="@../images/monopoly-dog.png" />
+                           </image>
+                        </ImageView>
+                     </children></StackPane>
+                        <StackPane id="two" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="4" GridPane.rowIndex="6">
+                     <GridPane.margin>
+                        <Insets top="30.0" />
+                     </GridPane.margin></StackPane>
+                        <StackPane id="three" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="3" GridPane.rowIndex="6">
+                     <GridPane.margin>
+                        <Insets top="30.0" />
+                     </GridPane.margin></StackPane>
+                        <StackPane id="four" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="2" GridPane.rowIndex="6">
+                     <GridPane.margin>
+                        <Insets top="30.0" />
+                     </GridPane.margin></StackPane>
+                        <StackPane id="five" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                     <GridPane.margin>
+                        <Insets top="30.0" />
+                     </GridPane.margin></StackPane>
                         <StackPane id="six" prefHeight="90.0" prefWidth="90" GridPane.rowIndex="6" />
-                        <StackPane id="seven" prefHeight="90.0" prefWidth="90" GridPane.rowIndex="5" />
-                        <StackPane id="eight" prefHeight="90.0" prefWidth="90" GridPane.rowIndex="4" />
-                        <StackPane id="nine" prefHeight="90.0" prefWidth="90" GridPane.rowIndex="3" />
-                        <StackPane id="ten" prefHeight="90.0" prefWidth="90" GridPane.rowIndex="2" />
-                        <StackPane id="eleven" prefHeight="90.0" prefWidth="90" GridPane.rowIndex="1" />
+                        <StackPane id="seven" prefHeight="90.0" prefWidth="90" GridPane.rowIndex="5">
+                     <GridPane.margin>
+                        <Insets right="30.0" />
+                     </GridPane.margin></StackPane>
+                        <StackPane id="eight" prefHeight="90.0" prefWidth="90" GridPane.rowIndex="4">
+                     <GridPane.margin>
+                        <Insets right="30.0" />
+                     </GridPane.margin></StackPane>
+                        <StackPane id="nine" prefHeight="90.0" prefWidth="90" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets right="30.0" />
+                     </GridPane.margin></StackPane>
+                        <StackPane id="ten" prefHeight="90.0" prefWidth="90" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets right="30.0" />
+                     </GridPane.margin>
+                     <children>
+                        <ImageView opacity="0.48">
+                           <image>
+                              <Image url="@../images/monopoly-dog-owned.png" />
+                           </image>
+                        </ImageView>
+                     </children></StackPane>
+                        <StackPane id="eleven" prefHeight="90.0" prefWidth="90" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets right="30.0" />
+                     </GridPane.margin>
+                     <children>
+                        <ImageView opacity="0.53">
+                           <image>
+                              <Image url="@../images/monopoly-dog-owned.png" />
+                           </image>
+                        </ImageView>
+                     </children></StackPane>
                         <StackPane id="twelve" prefHeight="90.0" prefWidth="90" />
-                        <StackPane id="thirteen" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="1" />
-                        <StackPane id="fourteen" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="2" />
-                        <StackPane id="fifteen" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="3" />
-                        <StackPane id="sixteen" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="4" />
-                        <StackPane id="seventeen" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="5" />
+                        <StackPane id="thirteen" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="1">
+                     <GridPane.margin>
+                        <Insets bottom="30.0" />
+                     </GridPane.margin></StackPane>
+                        <StackPane id="fourteen" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="2">
+                     <GridPane.margin>
+                        <Insets bottom="30.0" />
+                     </GridPane.margin></StackPane>
+                        <StackPane id="fifteen" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="3">
+                     <GridPane.margin>
+                        <Insets bottom="30.0" />
+                     </GridPane.margin></StackPane>
+                        <StackPane id="sixteen" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="4">
+                     <GridPane.margin>
+                        <Insets bottom="30.0" />
+                     </GridPane.margin>
+                     <children>
+                        <ImageView>
+                           <image>
+                              <Image url="@../images/monopoly-boat.png" />
+                           </image>
+                        </ImageView>
+                     </children></StackPane>
+                        <StackPane id="seventeen" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="5">
+                     <GridPane.margin>
+                        <Insets bottom="30.0" />
+                     </GridPane.margin>
+                     <children>
+                        <ImageView opacity="0.44">
+                           <image>
+                              <Image url="@../images/monopoly-boat-owned.png" />
+                           </image>
+                        </ImageView>
+                     </children></StackPane>
                         <StackPane id="eighteen" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="6" />
-                        <StackPane id="nineteen" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="6" GridPane.rowIndex="1" />
-                        <StackPane id="twenty" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="6" GridPane.rowIndex="2" />
-                        <StackPane id="twentyone" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="6" GridPane.rowIndex="3" />
-                        <StackPane id="rwntytwo" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="6" GridPane.rowIndex="4" />
-                        <StackPane id="twentythree" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="6" GridPane.rowIndex="5" />
+                        <StackPane id="nineteen" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="6" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets left="30.0" />
+                     </GridPane.margin></StackPane>
+                        <StackPane id="twenty" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="6" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets left="30.0" />
+                     </GridPane.margin></StackPane>
+                        <StackPane id="twentyone" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="6" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets left="30.0" />
+                     </GridPane.margin></StackPane>
+                        <StackPane id="rwntytwo" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="6" GridPane.rowIndex="4">
+                     <GridPane.margin>
+                        <Insets left="30.0" />
+                     </GridPane.margin></StackPane>
+                        <StackPane id="twentythree" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="6" GridPane.rowIndex="5">
+                     <GridPane.margin>
+                        <Insets left="30.0" />
+                     </GridPane.margin></StackPane>
                         <VBox id="messages" fx:id="messages" alignment="CENTER" opacity="0.9" prefHeight="450.0" prefWidth="450.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="1" GridPane.rowSpan="5">
                             <FlowPane id="card" columnHalignment="CENTER" hgap="20.0" prefWrapLength="430.0" rowValignment="TOP" />
-                     <Button mnemonicParsing="false" onAction="#buttonClick" text="OK">
-                        <font>
-                           <Font size="40.0" />
-                        </font>
-                     </Button>
+                            <Button mnemonicParsing="false" onAction="#buttonClick" text="OK">
+                                <font>
+                                    <Font size="40.0" />
+                                </font>
+                            </Button>
                         </VBox>
                     </children>
                 </GridPane>
@@ -77,52 +172,20 @@
                     <children>
                         <VBox id="accountBox" prefHeight="400.0" prefWidth="334.0">
                             <children>
-                                <HBox>
-                                    <ImageView>
-                                        <image>
-                                            <Image url="@../images/dog-money.jpg" />
-                                        </image>
-                                    </ImageView>
-                                    <TextField id="dogMoney" fx:id="dogMoney" alignment="CENTER_RIGHT" editable="false">
-                                        <HBox.margin>
-                                            <Insets top="28.0" />
-                                        </HBox.margin>
+                                <HBox id="dogMoneyBox" alignment="CENTER_RIGHT" prefHeight="100">
+                                    <TextField id="dogMoney" fx:id="dogMoney" alignment="CENTER_RIGHT" editable="false" prefWidth="120.0">
                                     </TextField>
                                 </HBox>
-                                <HBox>
-                                    <ImageView>
-                                        <image>
-                                            <Image url="@../images/cat-money.jpg" />
-                                        </image>
-                                    </ImageView>
-                                    <TextField id="catMoney" fx:id="catMoney" alignment="CENTER_RIGHT" editable="false">
-                                        <HBox.margin>
-                                            <Insets top="28.0" />
-                                        </HBox.margin>
+                                <HBox id="catMoneyBox" alignment="CENTER_RIGHT" prefHeight="100">
+                                    <TextField id="catMoney" fx:id="catMoney" alignment="CENTER_RIGHT" editable="false" prefWidth="120.0">
                                     </TextField>
                                 </HBox>
-                                <HBox>
-                                    <ImageView>
-                                        <image>
-                                            <Image url="@../images/car-money.jpg" />
-                                        </image>
-                                    </ImageView>
-                                    <TextField id="carMoney" fx:id="carMoney" alignment="CENTER_RIGHT" editable="false">
-                                        <HBox.margin>
-                                            <Insets top="28.0" />
-                                        </HBox.margin>
+                                <HBox id="carMoneyBox" alignment="CENTER_RIGHT" prefHeight="100">
+                                    <TextField id="carMoney" fx:id="carMoney" alignment="CENTER_RIGHT" editable="false" prefWidth="120.0">
                                     </TextField>
                                 </HBox>
-                                <HBox>
-                                    <ImageView>
-                                        <image>
-                                            <Image url="@../images/boat-money.jpg" />
-                                        </image>
-                                    </ImageView>
-                                    <TextField id="boatMoney" fx:id="boatMoney" alignment="CENTER_RIGHT" editable="false">
-                                        <HBox.margin>
-                                            <Insets top="28.0" />
-                                        </HBox.margin>
+                                <HBox id="boatMoneyBox" alignment="CENTER_RIGHT" prefHeight="100">
+                                    <TextField id="boatMoney" fx:id="boatMoney" alignment="CENTER_RIGHT" editable="false" prefWidth="120.0">
                                     </TextField>
                                 </HBox>
                             </children>
