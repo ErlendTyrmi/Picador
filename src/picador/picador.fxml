@@ -85,7 +85,7 @@
                         <Insets right="30.0" />
                      </GridPane.margin>
                      <children>
-                        <ImageView opacity="0.48">
+                        <ImageView>
                            <image>
                               <Image url="@../images/monopoly-dog-owned.png" />
                            </image>
@@ -96,7 +96,7 @@
                         <Insets right="30.0" />
                      </GridPane.margin>
                      <children>
-                        <ImageView opacity="0.53">
+                        <ImageView>
                            <image>
                               <Image url="@../images/monopoly-dog-owned.png" />
                            </image>
@@ -131,7 +131,7 @@
                         <Insets bottom="30.0" />
                      </GridPane.margin>
                      <children>
-                        <ImageView opacity="0.44">
+                        <ImageView>
                            <image>
                               <Image url="@../images/monopoly-boat-owned.png" />
                            </image>
