@@ -7,6 +7,12 @@
 #table{
     -fx-background-image: url("../images/perstorp.png");
 }
+.street{
+    -fx-background-color:transparent;
+}
+.street:hover{
+    -fx-background-color: rgba(255, 255, 255, .5); // transparent white
+}
 
 #dogMoneyBox{
     -fx-background-image: url("../images/dog-money.jpg");
@@ -31,6 +37,11 @@
 
 #dogMoney, #catMoney, #carMoney, #boatMoney{
     -fx-font-size:20;
+    -fx-background-color:#eee;
+    -fx-border-color:#888;
+    -fx-padding:10px;
+    -fx-border-radius: 5;
+      -fx-background-radius: 5;
 }
 
 #card{
