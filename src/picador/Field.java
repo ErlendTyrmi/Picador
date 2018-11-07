@@ -1,10 +1,19 @@
 package picador;
 
 public class Field {
-    String name;
-    String coordinates;
+    protected String name;
+    protected int number; // 0, 1 ... 23
+    protected String message;
 
-    public Field(String name, String coordinates){
-
+    // Getters
+    public String getName(){
+        return name;
     }
+
+    public int getFieldNumber(){
+        return number;
+    }
+
+    public String getMessage(){return message;}
+
 }

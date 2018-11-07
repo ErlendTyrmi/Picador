@@ -2,12 +2,13 @@ package picador;
 
 public class Game {
 
-    public static void main(String[] args){
-
-        Player dog = new Player();
-        Player cat = new Player();
-        Player car = new Player();
-        Player boat = new Player();
-
+    public Game(){
+        // choose 2-4 of these
+        Player dog = new Player("dog");
+        Player cat = new Player("cat");
+        Player car = new Player("car");
+        Player boat = new Player("boat");
     }
+
+    // Just messing around
 }

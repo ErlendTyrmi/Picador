@@ -9,11 +9,16 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
 
-        Parent root = FXMLLoader.load(getClass().getResource("picador.fxml"));
-        primaryStage.setTitle("PICADOR the board game");
+        FXMLLoader loader = new FXMLLoader();
+        Parent root = loader.load(getClass().getResource("picador.fxml"));
+
+        // ORIGINAL IntelliJ generated load:
+        // Parent root = FXMLLoader.load(getClass().getResource("picador.fxml"));
+
         primaryStage.setScene(new Scene(root));
+        primaryStage.setTitle("PICADOR the board game");
         primaryStage.setMinWidth(1024);
         primaryStage.setMinHeight(710);
         primaryStage.setMaximized(true);
