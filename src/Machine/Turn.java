@@ -3,7 +3,7 @@ package Machine;
 import java.util.Scanner;
 
 public class Turn {
-    //
+    /*
     private Player[] players;
     private boolean won;
     private int diceA, diceB, previousPosition, currentPosition;
@@ -64,5 +64,5 @@ public class Turn {
             }
         }
 
-    }
+    }*/
 }

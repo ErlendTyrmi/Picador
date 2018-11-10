@@ -1,12 +1,15 @@
 package picador;
 
+import Machine.DanishText;
 import Machine.Game;
+import Machine.Player;
 import javafx.animation.PauseTransition;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
@@ -17,29 +20,34 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 import javafx.fxml.FXMLLoader;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
-public class ControlFreak {
+public class ControlFreak{
     private AudioClip dice = new AudioClip(getClass().getResource("dice.wav").toExternalForm());
     private PauseTransition waitForIt = new PauseTransition(Duration.millis(1050));
     private Text message;
-    private int chosenField;
+    private int chosenField, turnIndex;
+    private Game game;
+    private boolean won = false, yesButtonClicked = false, noButtonClicked = false,
+                    dogChosen = false, catChosen = false, carChosen = false, boatChosen = false;
+    private Player currentPlayer;
     @FXML
     private ImageView diceViewA, diceViewB;
+    @FXML
+    private Button mainButton, dogButton, catButton, carButton, boatButton;
     @FXML
     private Label dogMoney, catMoney, carMoney, boatMoney;
     @FXML
     private HBox dogMoneyBox, catMoneyBox, carMoneyBox, boatMoneyBox;
     @FXML
-    private VBox messages;
+    private HBox buttonsBox;
+    @FXML
+    private VBox messageBox;
     @FXML
     private FlowPane card;
     @FXML
     private ImageView[] pieces;
     @FXML
     private Text gameText;
-    Game game;
+
 
     /************************************************
      * Controller handles GUI and controls the show
@@ -50,42 +58,62 @@ public class ControlFreak {
                 "custom_control.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
+    }
 
+    public void initialize(){
+        // Difference between this and constructor, this loads after fxml!
         settings();
-
     }
 
     private void settings(){
         game = new Game();
-        gameText.setText("Jarra");
+        // Show greeting:
+        showText(DanishText.greeting);
+        while(!yesButtonClicked){
+            waitForIt;
+        }
+        yesButtonClicked = false;
+        // Choose your players!
+        showPlayerChoice();
+        while(!yesButtonClicked){
+            waitForIt;
+        }
 
+
+        /*
+        game.start();
+        players = game.getPlayers();
+        playGame();
+
+        Image dogImg = new Image("images/monopoly-dog.png");
+        pieces[0]= new ImageView(dogImg);
+        Image catImg = new Image("images/monopoly-cat.png");
+        pieces[1]= new ImageView(catImg);
+        Image carImg = new Image("images/monopoly-car.png");
+        pieces[2]= new ImageView(carImg);
+        Image boatImg = new Image("images/monopoly-boat.png");
+        pieces[3]= new ImageView(boatImg);
+
+        Player dog = new Player("dog");
+        Player cat = new Player("cat");
+        Player car = new Player("car");
+        Player boat = new Player("boat");
+        */
     }
 
-    // TODO make players and put on start. Look at MAchine for inspiration
-    // TODO write method to move them MAke one that moves instantly first, then add steps
-    // TODO write method to communicate with game, and ask for info back Getters Setters
+    private void playGame() {
 
-    // Set Dice in UI:
-    public void rolldice(MouseEvent mouseEvent) {
-        // Move dice to other class
-        int a = (int) (Math.random() * 6 + 1);
-        int b = (int) (Math.random() * 6 + 1);
+        while(!won){
+            currentPlayer = game.getPlayers()[turnIndex];
+            game.playTurn(turnIndex);
 
-        System.out.println("dice clicked!");
 
-        int diceShifterA = a * 100 - 100;
-        int diceShifterB = b * 100 - 100;
-        diceViewA.setViewport(new Rectangle2D(600, 0, 100, 170));
-        diceViewB.setViewport(new Rectangle2D(600, 0, 100, 170));
-        dice.play();
-        waitForIt.setOnFinished(e -> {
-            diceViewA.setViewport(new Rectangle2D(diceShifterA, 0, 100, 170));
-            diceViewB.setViewport(new Rectangle2D(diceShifterB, 0, 100, 170));
-        });
-        waitForIt.play();
+        // TODO make players and put on start. Look at MAchine for inspiration
+        // TODO write method to move them MAke one that moves instantly first, then add steps
+        // TODO write method to communicate with game, and ask for info back Getters Setters
+        }
     }
-
-    // Set piece on board
+    // Move piece on board
     public void setPiece(Player player, String fieldNumber){
         // remove game piece from previous
         // put game piece in fieldNumber;
@@ -94,19 +122,27 @@ public class ControlFreak {
     // Show text (cards, buy-button and other text in centre of board)
 
     public void showText(String text){
-        //card.setVisible(true);
-        //message = new Text("text");
-        //card.getChildren().add(message);
-        //gameText.setText(text);
+        yesButtonClicked = false;
+        card.setVisible(true);
+        message = new Text("text");
+        card.getChildren().add(message);
+        gameText.setText(text);
     }
 
-    // When someone clicked the button
-    public Button mainButton;
-    public void mainButtonClick() {
-        // The button does nothing else, all actions are default.
-        //card.setVisible(false);
-        gameText.setText("Ouch");
-        // Start Machine Controller, initializer sets the wheels in motion
+    public void showPlayerChoice(){
+        dogChosen = false;
+        catChosen= false;
+        carChosen = false;
+        boatChosen = false;
+        dogButton = new Button(DanishText.dog);
+        catButton = new Button(DanishText.cat);
+        carButton = new Button(DanishText.car);
+        boatButton = new Button(DanishText.boat);
+        message = new Text(DanishText.choosePiece);
+        buttonsBox.getChildren().addAll(dogButton, catButton, carButton, boatButton);
+        card.getChildren().add(message);
+        card.getChildren().add(buttonsBox);
+        card.setVisible(true);
     }
 
     // Set account info for players (monopoly money)
@@ -137,6 +173,23 @@ public class ControlFreak {
             // Place players "owned"-image on field
         }
 
+    }
+
+    // Set Dice in UI:
+    public void rolldice(MouseEvent mouseEvent) {
+        // This seems to work!
+        System.out.println("dice clicked!");
+
+        int diceShifterA = game.getDiceA() * 100 - 100;
+        int diceShifterB = game.getDiceB() * 100 - 100;
+        diceViewA.setViewport(new Rectangle2D(600, 0, 100, 170));
+        diceViewB.setViewport(new Rectangle2D(600, 0, 100, 170));
+        dice.play();
+        waitForIt.setOnFinished(e -> {
+            diceViewA.setViewport(new Rectangle2D(diceShifterA, 0, 100, 170));
+            diceViewB.setViewport(new Rectangle2D(diceShifterB, 0, 100, 170));
+        });
+        waitForIt.play();
     }
 
     // The following is for implementing chance cards where the player can pick a field (street-type)!
@@ -240,6 +293,46 @@ public class ControlFreak {
     public void setChosenField(){
         //game.board[player.getCurrentSquare].hide(pieces[playersTurn])
         //board.squares[chosenField].show(pieces[playersTurn])
+    }
+
+    // Getting Button clicks
+
+    public void mainButtonClick() {
+        card.setVisible(false);
+        card.getChildren().removeAll();
+        yesButtonClicked = true;
+    }
+
+    public void yesButtonClick(ActionEvent actionEvent) {
+        card.setVisible(false);
+        card.getChildren().removeAll();
+        yesButtonClicked = true;
+    }
+
+    public void noButtonClick(ActionEvent actionEvent) {
+        card.setVisible(false);
+        card.getChildren().removeAll();
+        noButtonClicked = true;
+    }
+
+    public void dogButtonClick(ActionEvent actionEvent) {
+        System.out.println("Dog chosen.");
+        dogChosen = true;
+    }
+
+    public void catButtonClick(ActionEvent actionEvent) {
+        System.out.println("Cat chosen.");
+        catChosen = true;
+    }
+
+    public void carButtonClick(ActionEvent actionEvent) {
+        System.out.println("Car chosen.");
+        carChosen = true;
+    }
+
+    public void boatButtonClick(ActionEvent actionEvent) {
+        System.out.println("Boat Chosen");
+        boatChosen = true;
     }
 }
 

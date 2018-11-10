@@ -177,8 +177,8 @@
                                 <Insets left="30.0" />
                             </GridPane.margin>
                         </StackPane>
-                        <VBox id="messages" fx:id="messages" alignment="CENTER" opacity="0.8" prefHeight="450.0" prefWidth="450.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="1" GridPane.rowSpan="5">
-                            <FlowPane id="card" fx:id="card" columnHalignment="CENTER" hgap="20.0" maxWidth="430" minHeight="100.0" minWidth="430" rowValignment="TOP" visible="true">
+                        <VBox id="messageBox" fx:id="messageBox" alignment="CENTER" opacity="0.8" prefHeight="450.0" prefWidth="450.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="1" GridPane.rowSpan="5">
+                            <FlowPane id="card" fx:id="card" columnHalignment="CENTER" hgap="20.0" maxWidth="430" minHeight="100.0" minWidth="430" rowValignment="TOP" visible="false">
                                 <children>
                                     <Text fx:id="gameText" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="410">
                                         <FlowPane.margin>
@@ -188,14 +188,28 @@
                                             <Font size="14.0" />
                                         </font>
                                     </Text>
-                                    <VBox alignment="CENTER" minWidth="430.0" prefHeight="60.0" prefWidth="100.0">
+                                    <HBox fx:id="buttonsBox" alignment="CENTER" minWidth="430.0" prefHeight="60.0" prefWidth="100.0">
                                         <children>
-                                            <Button fx:id="mainButton" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#mainButtonClick" text="OK i get it!" />
+                                            <Button fx:id="mainButton" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#mainButtonClick" text="OK!" />
                                         </children>
                                         <FlowPane.margin>
                                             <Insets />
                                         </FlowPane.margin>
-                                    </VBox>
+                                    </HBox>
+                                    <HBox fx:id="rightTrueBox" alignment="CENTER" minWidth="430.0" prefHeight="60.0" prefWidth="100.0">
+                                        <children>
+                                            <Button fx:id="yesButton" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#yesButtonClick" text="OK!" />
+                                            <Button fx:id="noButton" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#noButtonClick" text="OK!" />
+                                        </children>
+                                    </HBox>
+                                    <HBox fx:id="characterChoiceBox" alignment="CENTER" minWidth="430.0" prefHeight="60.0" prefWidth="100.0">
+                                        <children>
+                                            <Button fx:id="dogButton" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#dogButtonClick" text="OK!" />
+                                            <Button fx:id="catButton" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#catButtonClick" text="OK!" />
+                                            <Button fx:id="carButton" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#carButtonClick" text="OK!" />
+                                            <Button fx:id="boatButton" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#boatButtonClick" text="OK!" />
+                                        </children>
+                                    </HBox>
                                 </children>
                             </FlowPane>
                         </VBox>

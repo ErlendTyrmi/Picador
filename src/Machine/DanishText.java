@@ -5,6 +5,16 @@ import java.util.Map;
 
 public class DanishText {
 
+    public static String greeting ="Klar for en omgang Mata.. jeg mener Picador?";
+    public static String choosePiece = "Vælg din favoritfigur, og klik start! (Minimum 2 spillere.)";
+    public static String dog = "Hund";
+    public static String cat = "Kat";
+    public static String car = "Bil";
+    public static String boat = "Båd";
+    public static String player = "Spiller";
+    public static String yourTurn = "Så er det din tur.";
+    public static String rollDice = "Slå terningerne!";
+
     private String[] squareDescriptions = {
             "Start\n\nDu får 1M når du passerer Start! Det lønner sig at stå tidlig op.",
             "Burgerbaren\n\nGod burger, god pris.",
@@ -58,20 +68,6 @@ public class DanishText {
             "Vandland",
             "Promenaden."
     };
-
-    DanishText() {
-
-        //Creating map of texts
-        Map<String, String> map = new HashMap<String, String>();
-        //Creating texts
-        map.put("Greeting", "Klar for en omgang Monopoly? Vælg din favoritfigur!");
-        map.put("Player", "Spiller");
-        map.put("Your Turn", "Så er det din tur.");
-        map.put("Roll Dice", "Slå terningerne!");
-    }
-    public String getGreeting(){
-        return "Klar for en omgang Monopoly? Vælg din favoritfigur!";
-    }
 
     public String getSquareDescription(int x) {
         return squareDescriptions[x];

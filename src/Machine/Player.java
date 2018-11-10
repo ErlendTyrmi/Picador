@@ -16,11 +16,12 @@ public class Player {
         return position;
     }
 
-    public void setPosition(int position) {
+    public void move(int diceA, int diceB) {
+        position += diceA + diceB;
+        // Check for out of bounds.
         if (position > 23) {
             position -= 24;
         }
-        this.position = position;
     }
 
     public int getMoney() {
