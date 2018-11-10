@@ -1,7 +1,9 @@
 package picador;
 
-import Machine.ControlFreak;
+import Machine.Game;
 import javafx.animation.PauseTransition;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,35 +17,55 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 import javafx.fxml.FXMLLoader;
 
-public class GUIController {
+import java.net.URL;
+import java.util.ResourceBundle;
 
-    /**********************************************
-     * Controller handles GUI and makes game object
-     *********************************************/
+public class ControlFreak {
+    private AudioClip dice = new AudioClip(getClass().getResource("dice.wav").toExternalForm());
+    private PauseTransition waitForIt = new PauseTransition(Duration.millis(1050));
+    private Text message;
+    private int chosenField;
+    @FXML
+    private ImageView diceViewA, diceViewB;
+    @FXML
+    private Label dogMoney, catMoney, carMoney, boatMoney;
+    @FXML
+    private HBox dogMoneyBox, catMoneyBox, carMoneyBox, boatMoneyBox;
+    @FXML
+    private VBox messages;
+    @FXML
+    private FlowPane card;
+    @FXML
+    private ImageView[] pieces;
+    @FXML
+    private Text gameText;
+    Game game;
 
-    public GUIController() {
+    /************************************************
+     * Controller handles GUI and controls the show
+     ***********************************************/
+
+    public ControlFreak() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "custom_control.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
-        // Start Machine Controller, initializer sets the wheels in motion
-        ControlFreak cf = new ControlFreak();
+        settings();
+
     }
 
-    private AudioClip dice = new AudioClip(getClass().getResource("dice.wav").toExternalForm());
-    private PauseTransition waitForIt = new PauseTransition(Duration.millis(1050));
-    private Text message;
-    private int chosenField;
+    private void settings(){
+        game = new Game();
+        gameText.setText("Jarra");
 
-    public ImageView diceViewA, diceViewB;
-    public Label dogMoney, catMoney, carMoney, boatMoney;
-    public HBox dogMoneyBox, catMoneyBox, carMoneyBox, boatMoneyBox;
-    public VBox messages;
-    public FlowPane card;
+    }
 
+    // TODO make players and put on start. Look at MAchine for inspiration
+    // TODO write method to move them MAke one that moves instantly first, then add steps
+    // TODO write method to communicate with game, and ask for info back Getters Setters
 
-    // Dice
+    // Set Dice in UI:
     public void rolldice(MouseEvent mouseEvent) {
         // Move dice to other class
         int a = (int) (Math.random() * 6 + 1);
@@ -60,7 +82,6 @@ public class GUIController {
             diceViewA.setViewport(new Rectangle2D(diceShifterA, 0, 100, 170));
             diceViewB.setViewport(new Rectangle2D(diceShifterB, 0, 100, 170));
         });
-
         waitForIt.play();
     }
 
@@ -73,14 +94,19 @@ public class GUIController {
     // Show text (cards, buy-button and other text in centre of board)
 
     public void showText(String text){
-        message = new Text(text);
-        card = new FlowPane(message);
+        //card.setVisible(true);
+        //message = new Text("text");
+        //card.getChildren().add(message);
+        //gameText.setText(text);
     }
 
     // When someone clicked the button
     public Button mainButton;
     public void mainButtonClick() {
-        card.setVisible(false); // The button does nothing else, all actions are default.
+        // The button does nothing else, all actions are default.
+        //card.setVisible(false);
+        gameText.setText("Ouch");
+        // Start Machine Controller, initializer sets the wheels in motion
     }
 
     // Set account info for players (monopoly money)
@@ -212,7 +238,8 @@ public class GUIController {
         chosenField = 23;
     }
     public void setChosenField(){
-    //  Tell game where to put piece?
+        //game.board[player.getCurrentSquare].hide(pieces[playersTurn])
+        //board.squares[chosenField].show(pieces[playersTurn])
     }
 }
 

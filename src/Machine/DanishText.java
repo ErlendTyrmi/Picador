@@ -11,7 +11,7 @@ public class DanishText {
             "Pizzeria\n\nDen bedste pizza nord for Italien! Enkelt og godt!",
             "Chance\n\nTræk et kort i bunken!",
             "Slikbutik\n\nHver dag er fredag i denne butik!",
-            "Isbar\\Gammeldaws frødeis med guf og det hele.",
+            "Isbar\n\nGammeldaws flødeis med guf og det hele.",
             "Fængsel\n\nSlap af, hvis du havner her, er du bare på besøg hos en god kollega.",
             "Museum\n\nEn flot gammel bygning, med stolte aner fra Tordenskjolds tid.",
             "Bibliotek\n\nHer kan man betale sine gebyrer, når man alligevel er forbi.",
@@ -49,25 +49,28 @@ public class DanishText {
             "Spillehal.",
             "Biograf!",
             "Chance",
-            "Legetøjsbutik\n\nEt paradis for familiens mindste.",
-            "Dyrehandel\n\nStort udvalg af kæledyr og dyrefoder",
-            "Gå i fængsel\n\nSå klapper fælden! Ryk til fængsel, og stå over en omgang.",
-            "Bowling\n\nBowling går aldri helt af mode.",
-            "Zoo\n\nKøbenhavns berømte Zoo.",
-            "Chance\n\nTræk et kort i bunken!",
-            "Vandland\n\nByens populære vandland, med rutchebaner i alle størrelser.",
-            "Promenaden\n\nByens fineste gade. Her kan man købe dyrt tøj og dyre smørrebrød."
+            "Legetøjsbutik",
+            "Dyrehandel",
+            "Gå i fængsel",
+            "Bowling",
+            "Zoo.",
+            "Chance",
+            "Vandland",
+            "Promenaden."
     };
 
     DanishText() {
 
-        //Creating map of Books
+        //Creating map of texts
         Map<String, String> map = new HashMap<String, String>();
-        //Creating Books
+        //Creating texts
         map.put("Greeting", "Klar for en omgang Monopoly? Vælg din favoritfigur!");
         map.put("Player", "Spiller");
         map.put("Your Turn", "Så er det din tur.");
         map.put("Roll Dice", "Slå terningerne!");
+    }
+    public String getGreeting(){
+        return "Klar for en omgang Monopoly? Vælg din favoritfigur!";
     }
 
     public String getSquareDescription(int x) {

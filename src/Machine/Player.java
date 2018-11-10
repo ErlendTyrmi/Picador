@@ -2,8 +2,13 @@ package Machine;
 
 public class Player {
     private int position, money;
+    private String name;
+    private boolean inPrison = false, getOutOfPrison = false;
 
-    public Player() {
+    public Player(String name, int money) {
+        this.name = name;
+        this.money = money;
+        position = 0;
 
     }
 
@@ -12,6 +17,9 @@ public class Player {
     }
 
     public void setPosition(int position) {
+        if (position > 23) {
+            position -= 24;
+        }
         this.position = position;
     }
 
@@ -20,6 +28,7 @@ public class Player {
     }
 
     public void setMoney(int money) {
+
         this.money = money;
     }
 
@@ -31,4 +40,19 @@ public class Player {
         }
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public boolean isInPrison() {
+        return inPrison;
+    }
+
+    public void setInPrison(boolean inPrison) {
+        this.inPrison = inPrison;
+    }
+
+    public boolean hasGetOutOfPrison() {
+        return getOutOfPrison;
+    }
 }
