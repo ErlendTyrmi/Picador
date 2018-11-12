@@ -12,10 +12,10 @@ public class DanishText {
     public static String car = "Bil";
     public static String boat = "Båd";
     public static String player = "Spiller";
-    public static String yourTurn = "Så er det din tur.";
+    public static String yourTurn = ", så er det din tur. Klik på terningerne for at spille!";
     public static String rollDice = "Slå terningerne!";
 
-    private String[] squareDescriptions = {
+    public static  String[] squareDescriptions = {
             "Start\n\nDu får 1M når du passerer Start! Det lønner sig at stå tidlig op.",
             "Burgerbaren\n\nGod burger, god pris.",
             "Pizzeria\n\nDen bedste pizza nord for Italien! Enkelt og godt!",
@@ -42,7 +42,7 @@ public class DanishText {
             "Promenaden\n\nByens fineste gade. Her kan man købe dyrt tøj og dyre smørrebrød."
     };
 
-    private String[] squareTitles = {
+    public static String[] squareTitles = {
             "Start",
             "Burgerbaren",
             "Pizzeria",
@@ -69,11 +69,12 @@ public class DanishText {
             "Promenaden."
     };
 
-    public String getSquareDescription(int x) {
+
+    // Used by Board
+    public static String getSquareDescription(int x) {
         return squareDescriptions[x];
     }
-
-    public String getSquareTitles(int x) {
+    public static String getSquareTitles(int x){
         return squareTitles[x];
     }
 }

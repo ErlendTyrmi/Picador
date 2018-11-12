@@ -90,12 +90,11 @@ public class ControlFreak {
     }
 
     private void playTurn() {
-        currentPlayer = players[turnIndex];
         System.out.println("playGame method called.");
+        currentPlayer = players[turnIndex];
             game.playTurn(currentPlayer);
-            movePiece(currentPlayer, currentPlayer.getPosition());
             turnIndex++;
-            if (turnIndex <= numberOfPLayers){
+            if (turnIndex >= numberOfPLayers){
                 turnIndex = 0;
             }
             // TODO write method to move them MAke one that moves instantly first, then add steps
@@ -114,6 +113,8 @@ public class ControlFreak {
         waitForIt.setOnFinished(e -> {
             diceViewA.setViewport(new Rectangle2D(diceShifterA, 0, 100, 170));
             diceViewB.setViewport(new Rectangle2D(diceShifterB, 0, 100, 170));
+            movePiece(currentPlayer, currentPlayer.getPosition());
+            showText(DanishText.squareDescriptions[currentPlayer.getPosition()]);
         });
         waitForIt.play();
     }
