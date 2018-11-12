@@ -1,7 +1,5 @@
 package Machine;
 
-import picador.ControlFreak;
-
 public class Game {
     private Player[] players;
     private final String[] playerNames = {"Hund", "Kat", "Bil", "Skib"};
@@ -27,6 +25,11 @@ public class Game {
         diceB = dice.roll();
         currentPlayer.move(diceA, diceB);
         newPosition = currentPlayer.getPosition();
+        // Long one: Get price of square at currentPlayer's position;
+        currentPlayer.setMoney(board.getSquares(currentPlayer.getPosition()).getPrice());
+        if (currentPlayer.hasPassedStart()){
+            currentPlayer.setMoney(-1);
+        }
 
         // More stuff will come.
     }

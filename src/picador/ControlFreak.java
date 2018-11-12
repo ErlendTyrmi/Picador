@@ -114,7 +114,18 @@ public class ControlFreak {
             diceViewA.setViewport(new Rectangle2D(diceShifterA, 0, 100, 170));
             diceViewB.setViewport(new Rectangle2D(diceShifterB, 0, 100, 170));
             movePiece(currentPlayer, currentPlayer.getPosition());
-            showText(DanishText.squareDescriptions[currentPlayer.getPosition()]);
+            if (currentPlayer.hasPassedStart()){
+                showText(DanishText.squareDescriptions[currentPlayer.getPosition()]+ "\n\n" + currentPlayer.getName() + DanishText.passedStart );
+            } else {
+               showText(DanishText.squareDescriptions[currentPlayer.getPosition()]);
+            }
+            setMoney(currentPlayer.getName(), currentPlayer.getMoney());
+            currentPlayer.setPassedStart(false);
+            if (currentPlayer.isBroke()){
+                showText("Game ended. Go home.");
+                // Go to other function here disable dice!
+                // tunnel back to settings.
+            }
         });
         waitForIt.play();
     }

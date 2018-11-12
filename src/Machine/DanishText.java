@@ -14,6 +14,7 @@ public class DanishText {
     public static String player = "Spiller";
     public static String yourTurn = ", så er det din tur. Klik på terningerne for at spille!";
     public static String rollDice = "Slå terningerne!";
+    public static String passedStart = ", du har passeret start og får 1M!";
 
     public static  String[] squareDescriptions = {
             "Start\n\nDu får 1M når du passerer Start! Det lønner sig at stå tidlig op.",
