@@ -17,6 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.control.CheckBox?>
 <StackPane id="table" stylesheets="@picador.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="picador.ControlFreak">
     <children>
         <HBox id="mainBox" maxHeight="710" maxWidth="1024" minHeight="710" minWidth="1024" prefHeight="710" prefWidth="1024">
@@ -87,30 +88,11 @@
                             <GridPane.margin>
                                 <Insets right="30.0" />
                             </GridPane.margin>
-                            <children>
-                                <ImageView>
-                                    <image>
-                                        <Image url="@../images/monopoly-dog-owned.png" />
-                                    </image>
-                                </ImageView>
-                                <ImageView>
-                                    <image>
-                                        <Image url="@../images/monopoly-dog.png" />
-                                    </image>
-                                </ImageView>
-                            </children>
                         </StackPane>
                         <StackPane id="eleven" fx:id="eleven" onMouseClicked="#fieldElevenChosen" prefHeight="90.0" prefWidth="90" styleClass="street" GridPane.rowIndex="1">
                             <GridPane.margin>
                                 <Insets right="30.0" />
                             </GridPane.margin>
-                            <children>
-                                <ImageView>
-                                    <image>
-                                        <Image url="@../images/monopoly-dog-owned.png" />
-                                    </image>
-                                </ImageView>
-                            </children>
                         </StackPane>
                         <StackPane id="twelve" fx:id="twelve" onMouseClicked="#fieldTwelveChosen" prefHeight="90.0" prefWidth="90" styleClass="street" />
                         <StackPane id="thirteen" fx:id="thirteen" onMouseClicked="#fieldThirteenChosen" prefHeight="90.0" prefWidth="90" styleClass="street" GridPane.columnIndex="1">
@@ -132,25 +114,11 @@
                             <GridPane.margin>
                                 <Insets bottom="30.0" />
                             </GridPane.margin>
-                            <children>
-                                <ImageView>
-                                    <image>
-                                        <Image url="@../images/monopoly-boat.png" />
-                                    </image>
-                                </ImageView>
-                            </children>
                         </StackPane>
                         <StackPane id="seventeen" fx:id="seventeen" onMouseClicked="#fieldSeventeenChosen" prefHeight="90.0" prefWidth="90" styleClass="street" GridPane.columnIndex="5">
                             <GridPane.margin>
                                 <Insets bottom="30.0" />
                             </GridPane.margin>
-                            <children>
-                                <ImageView>
-                                    <image>
-                                        <Image url="@../images/monopoly-boat-owned.png" />
-                                    </image>
-                                </ImageView>
-                            </children>
                         </StackPane>
                         <StackPane id="eighteen" fx:id="eighteen" onMouseClicked="#fieldEighteenChosen" prefHeight="90.0" prefWidth="90" styleClass="street" GridPane.columnIndex="6" />
                         <StackPane id="nineteen" fx:id="nineteen" onMouseClicked="#fieldNineteenChosen" prefHeight="90.0" prefWidth="90" styleClass="street" GridPane.columnIndex="6" GridPane.rowIndex="1">
@@ -178,8 +146,8 @@
                                 <Insets left="30.0" />
                             </GridPane.margin>
                         </StackPane>
-                        <VBox id="messageBox" fx:id="messageBox" alignment="CENTER" opacity="0.8" prefHeight="450.0" prefWidth="450.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="1" GridPane.rowSpan="5">
-                            <FlowPane id="card" fx:id="card" columnHalignment="CENTER" hgap="20.0" maxWidth="430" minHeight="100.0" minWidth="430" rowValignment="TOP">
+                        <VBox id="messageBox" fx:id="messageBox" alignment="CENTER" opacity="0.9" prefHeight="450.0" prefWidth="450.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="1" GridPane.rowSpan="5">
+                            <FlowPane id="card" fx:id="card" columnHalignment="CENTER" hgap="20.0" maxWidth="430" minHeight="100.0" minWidth="430" rowValignment="TOP" visible="false">
                                 <children>
                                     <Text fx:id="gameText" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="410">
                                         <FlowPane.margin>
@@ -189,39 +157,39 @@
                                             <Font size="14.0" />
                                         </font>
                                     </Text>
-                           <HBox fx:id="characterChoiceImageBox" alignment="TOP_CENTER" prefHeight="106.0" prefWidth="430.0">
+                           <HBox fx:id="characterChoiceImageBox" alignment="TOP_CENTER" prefHeight="106.0" prefWidth="430.0" visible="false">
                               <children>
-                                 <ImageView fitHeight="106.0" fitWidth="106.0">
+                                 <ImageView fx:id="dogToken" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#playDogSound">
                                     <image>
                                        <Image url="@../images/monopoly-dog.png" />
                                     </image>
                                  </ImageView>
-                                 <ImageView fitHeight="106.0" fitWidth="106.0">
+                                 <ImageView fx:id="catToken" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#playCatSound">
                                     <image>
                                        <Image url="@../images/monopoly-cat.png" />
                                     </image>
                                  </ImageView>
-                                 <ImageView fitHeight="106.0" fitWidth="106.0">
+                                 <ImageView fx:id="carToken" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#playCarSound">
                                     <image>
                                        <Image url="@../images/monopoly-car.png" />
                                     </image>
                                  </ImageView>
-                                 <ImageView fitHeight="106.0" fitWidth="106.0">
+                                 <ImageView fx:id="boatToken" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#playBoatSound">
                                     <image>
                                        <Image url="@../images/monopoly-boat.png" />
                                     </image>
                                  </ImageView>
                               </children>
                            </HBox>
-                           <HBox fx:id="characterChoiceBox" alignment="TOP_CENTER" prefHeight="40.0" prefWidth="430.0">
+                           <HBox fx:id="characterChoiceBox" alignment="TOP_CENTER" prefHeight="40.0" prefWidth="430.0" visible="false">
                               <children>
-                                 <RadioButton fx:id="dogRadioButton" maxWidth="106.0" minWidth="106.0" mnemonicParsing="false" text="Hund" />
-                                 <RadioButton fx:id="catRadioButton" maxWidth="106.0" minWidth="106.0" mnemonicParsing="false" text="Kat" />
-                                 <RadioButton fx:id="carRadioButton" maxWidth="106.0" minWidth="106.0" mnemonicParsing="false" text="Bil" />
-                                 <RadioButton fx:id="boatRadioButton" maxWidth="106.0" minWidth="106.0" mnemonicParsing="false" text="Båd" />
+                                 <CheckBox fx:id="dogCheckBox" minWidth="90.0" mnemonicParsing="false" text="Hund" />
+                                 <CheckBox fx:id="catCheckBox" minWidth="90.0" mnemonicParsing="false" text="Kat" />
+                                 <CheckBox fx:id="carCheckBox" minWidth="90.0" mnemonicParsing="false" text="Bil" />
+                                 <CheckBox fx:id="boatCheckBox" minWidth="90.0" mnemonicParsing="false" text="Båd" />
                               </children>
                            </HBox>
-                                    <HBox fx:id="buttonsBox" alignment="CENTER" minWidth="430.0" prefHeight="60.0" prefWidth="100.0">
+                                    <HBox fx:id="buttonBox" alignment="CENTER" minWidth="430.0" prefHeight="60.0" prefWidth="100.0" visible="false">
                                         <children>
                                             <Button fx:id="okButton" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#mainButtonClick" text="OK!" />
                                         </children>
@@ -250,7 +218,7 @@
                     <children>
                         <VBox id="accountBox" prefHeight="400.0" prefWidth="334.0">
                             <children>
-                                <HBox fx:id="dogMoneyBox" alignment="CENTER_RIGHT" prefHeight="100">
+                                <HBox fx:id="dogMoneyBox" alignment="CENTER_RIGHT" prefHeight="100" visible="false">
                                     <Label id="dogMoney" fx:id="dogMoney" alignment="CENTER_RIGHT" prefWidth="120.0" text="20">
                                     </Label>
                                 </HBox>
@@ -262,7 +230,7 @@
                                     <Label id="carMoney" fx:id="carMoney" alignment="CENTER_RIGHT" prefWidth="120.0">
                                     </Label>
                                 </HBox>
-                                <HBox fx:id="boatMoneyBox" alignment="CENTER_RIGHT" prefHeight="100">
+                                <HBox fx:id="boatMoneyBox" alignment="CENTER_RIGHT" prefHeight="100" visible="false">
                                     <Label id="boatMoney" fx:id="boatMoney" alignment="CENTER_RIGHT" prefWidth="120.0" text="20">
                                     </Label>
                                 </HBox>

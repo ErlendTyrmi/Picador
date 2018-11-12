@@ -22,20 +22,11 @@ public class Game {
         System.out.println(DanishText.greeting);
     }
 
-    void start(){
-        // Is this necessary?
-        // Make players dog cat? Good idea. UI can update corresponding img only!
-        //Player dog = new Player("dog");
-        //Player cat = new Player("cat");
-        //Player car = new Player("car");
-        //Player boat = new Player("boat");
-    }
-
-    public void playTurn(int currentPlayerIndex){
+    public void playTurn(Player currentPlayer){
         diceA = dice.roll();
         diceB = dice.roll();
-        players[currentPlayerIndex].move(diceA, diceB);
-        newPosition = players[currentPlayerIndex].getPosition();
+        currentPlayer.move(diceA, diceB);
+        newPosition = currentPlayer.getPosition();
 
         // More stuff will come.
     }

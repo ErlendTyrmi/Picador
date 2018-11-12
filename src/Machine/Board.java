@@ -5,7 +5,7 @@ public class Board {
     // Types:
     // start, chance, prison, parking, toPrison,
     // brown, lightBlue, purple, orange, red, yellow, green, blue
-    private Player bank = new Player("Banken", 1000000000);
+    private Player bank = new Player("Banken");
     DanishText text = new DanishText();
 
     Square[] squares = {

@@ -8,12 +8,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
+import javafx.scene.control.RadioButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
 import javafx.scene.text.Text;
@@ -22,22 +24,40 @@ import javafx.fxml.FXMLLoader;
 
 public class ControlFreak {
     private AudioClip dice = new AudioClip(getClass().getResource("dice.wav").toExternalForm());
+    private AudioClip dogSound = new AudioClip(getClass().getResource("bark.wav").toExternalForm());
+    private AudioClip catSound = new AudioClip(getClass().getResource("meow.wav").toExternalForm());
+    private AudioClip carSound = new AudioClip(getClass().getResource("car.wav").toExternalForm());
+    private AudioClip boatSound = new AudioClip(getClass().getResource("boat.wav").toExternalForm());
+    private AudioClip moneySound = new AudioClip(getClass().getResource("money.wav").toExternalForm());
     private PauseTransition waitForIt = new PauseTransition(Duration.millis(1050));
-    private int chosenField, turnIndex;
+    private int chosenField, numberOfPLayers, fortune, turnIndex;
     private Game game;
     private boolean won = false, yesButtonClicked = false, noButtonClicked = false,
             dogChosen = false, catChosen = false, carChosen = false, boatChosen = false;
     private Player currentPlayer;
+    private Player[] players;
     @FXML
-    private ImageView diceViewA, diceViewB;
+    private ImageView diceViewA, diceViewB, dogToken, catToken, carToken, boatToken;
     @FXML
-    private Button mainButton, dogButton, catButton, carButton, boatButton;
+    private ImageView[] tokens;
+    @FXML
+    private Button okButton, yesButton, noButton;
+    @FXML
+    private CheckBox dogCheckBox, catCheckBox, carCheckBox, boatCheckBox;
+    @FXML
+    private CheckBox[] checkBoxes = {dogCheckBox, catCheckBox, carCheckBox, boatCheckBox};
+    @FXML
+    private StackPane zero, one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen,
+    fifteen, sixteen, seventeen, eighteen, nineteen, twenty, twentyone, twentytwo, twentythree;
+    @FXML
+    private StackPane[] squares = {zero, one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen,
+            fifteen, sixteen, seventeen, eighteen, nineteen, twenty, twentyone, twentytwo, twentythree};
     @FXML
     private Label dogMoney, catMoney, carMoney, boatMoney;
     @FXML
     private HBox dogMoneyBox, catMoneyBox, carMoneyBox, boatMoneyBox;
     @FXML
-    private HBox buttonsBox, rightTrueBox;
+    private HBox buttonBox, rightTrueBox, characterChoiceBox, characterChoiceImageBox;
     @FXML
     private VBox messageBox;
     @FXML
@@ -60,53 +80,49 @@ public class ControlFreak {
     }
 
     public void initialize() {
-        // Difference between this and constructor, this loads after fxml!
+        // Difference between this and constructor: this loads after fxml!
         settings();
     }
 
     private void settings() {
         game = new Game();
-
-        showPlayerChoice();
-
-        /*
-        game.start();
-        players = game.getPlayers();
-        playGame();
-
-        Image dogImg = new Image("images/monopoly-dog.png");
-        pieces[0]= new ImageView(dogImg);
-        Image catImg = new Image("images/monopoly-cat.png");
-        pieces[1]= new ImageView(catImg);
-        Image carImg = new Image("images/monopoly-car.png");
-        pieces[2]= new ImageView(carImg);
-        Image boatImg = new Image("images/monopoly-boat.png");
-        pieces[3]= new ImageView(boatImg);
-
-        Player dog = new Player("dog");
-        Player cat = new Player("cat");
-        Player car = new Player("car");
-        Player boat = new Player("boat");
-        */
+        showPlayerChoice(); // Long and complicated function below
     }
 
-    private void playGame() {
-
-        while (!won) {
-            currentPlayer = game.getPlayers()[turnIndex];
-            game.playTurn(turnIndex);
-
-
-            // TODO make players and put on start. Look at MAchine for inspiration
+    private void playTurn() {
+        currentPlayer = players[turnIndex];
+        System.out.println("playGame method called.");
+            game.playTurn(currentPlayer);
+            movePiece(currentPlayer, currentPlayer.getPosition());
+            turnIndex++;
+            if (turnIndex <= numberOfPLayers){
+                turnIndex = 0;
+            }
             // TODO write method to move them MAke one that moves instantly first, then add steps
-            // TODO write method to communicate with game, and ask for info back Getters Setters
-        }
     }
+
+    // Set Dice in UI:
+    public void rolldice(MouseEvent mouseEvent) {
+        // This seems to work!
+        System.out.println("dice clicked!");
+        playTurn();
+        int diceShifterA = game.getDiceA() * 100 - 100;
+        int diceShifterB = game.getDiceB() * 100 - 100;
+        diceViewA.setViewport(new Rectangle2D(600, 0, 100, 170));
+        diceViewB.setViewport(new Rectangle2D(600, 0, 100, 170));
+        dice.play();
+        waitForIt.setOnFinished(e -> {
+            diceViewA.setViewport(new Rectangle2D(diceShifterA, 0, 100, 170));
+            diceViewB.setViewport(new Rectangle2D(diceShifterB, 0, 100, 170));
+        });
+        waitForIt.play();
+    }
+
 
     // Move piece on board
-    public void setPiece(Player player, String fieldNumber) {
+    public void movePiece(Player player, int squareNumber) {
         // remove game piece from previous
-        // put game piece in fieldNumber;
+       getSquare(squareNumber).getChildren().add(tokens[turnIndex]);
     }
 
     // Show text (cards, buy-button and other text in centre of board)
@@ -120,30 +136,109 @@ public class ControlFreak {
     }
 
     public void showPlayerChoice() {
-        dogChosen = false;
-        catChosen = false;
-        carChosen = false;
-        boatChosen = false;
-        choiceButtonGroup.add(dogButton); , catButton, carButton, boatButton
         gameText.setText(DanishText.choosePiece);
+        characterChoiceImageBox.setVisible(true);
+        dogToken.setOnMouseClicked(e->{dogCheckBox.setSelected(true);dogSound.play();});
+        catToken.setOnMouseClicked(e->{catCheckBox.setSelected(true);catSound.play();});
+        carToken.setOnMouseClicked(e->{carCheckBox.setSelected(true);carSound.play();});
+        boatToken.setOnMouseClicked(e->{boatCheckBox.setSelected(true);boatSound.play();});
+        characterChoiceBox.setVisible(true);
+        buttonBox.setVisible(true);
+        okButton.setText("Start");
         card.setVisible(true);
-        mainButton.setOnAction(e->);
+        // When Start clicked:
+        okButton.setOnAction(e->{
+            card.setVisible(false);
+            characterChoiceImageBox.setVisible(false);
+            characterChoiceBox.setVisible(false);
+            buttonBox.setVisible(false);
+
+            numberOfPLayers = 0;
+            if (dogCheckBox.isSelected()){
+                zero.getChildren().add(dogToken);
+                dogChosen = true;
+                numberOfPLayers++;
+            }
+            if (catCheckBox.isSelected()){
+                zero.getChildren().add(catToken);
+                catChosen = true;
+                numberOfPLayers++;
+            }
+            if (carCheckBox.isSelected()){
+                zero.getChildren().add(carToken);
+                carChosen = true;
+                numberOfPLayers++;
+            }
+            if (boatCheckBox.isSelected()){
+                zero.getChildren().add(boatToken);
+                boatChosen = true;
+                numberOfPLayers++;
+            }
+
+            // In case none selected: Cat
+            if (numberOfPLayers == 0){
+                zero.getChildren().add(catToken);
+                catChosen = true;
+                numberOfPLayers++;
+                }
+
+            players = new Player[numberOfPLayers];
+            tokens = new ImageView[numberOfPLayers];
+
+            int i = 0;
+            if (dogChosen){
+                players[i] = new Player("Hund");
+                tokens[i] = dogToken;
+                i++;
+            }
+            if (catChosen){
+                players[i] = new Player("Kat");
+                tokens[i] = catToken;
+                i++;
+            }
+            if (carChosen){
+                players[i] = new Player("Bil");
+                tokens[i] = carToken;
+                i++;
+            }
+            if (boatChosen){
+                players[i] = new Player("Båd");
+                tokens[i] = boatToken;
+            }
+
+            if (players.length == 4){
+                fortune = 16;
+            } else if (players.length == 3){
+                fortune = 18;
+            } else {
+                fortune = 20;
+            }
+            for (Player x : players){
+                setMoney(x.getName(), fortune);
+            }
+
+            turnIndex = (int)(Math.random()*numberOfPLayers);
+            System.out.println("Starting with player " + turnIndex + ".");
+
+            System.out.println("All is set up. Let the games begin!");
+        });
+
     }
 
     // Set account info for players (monopoly money)
 
     // First time players money is updated, their money field becomes visible.
     public void setMoney(String playerName, int fortune) {
-        if (playerName.equals("dog")) {
+        if (playerName.equals("Hund")) {
             dogMoney.setText(Integer.toString(fortune));
             dogMoneyBox.setVisible(true);
-        } else if (playerName.equals("cat")) {
+        } else if (playerName.equals("Kat")) {
             catMoney.setText(Integer.toString(fortune));
             catMoneyBox.setVisible(true);
-        } else if (playerName.equals("car")) {
+        } else if (playerName.equals("Bil")) {
             carMoney.setText(Integer.toString(fortune));
             carMoneyBox.setVisible(true);
-        } else if (playerName.equals("boat")) {
+        } else if (playerName.equals("Båd")) {
             boatMoney.setText(Integer.toString(fortune));
             boatMoneyBox.setVisible(true);
         } else {
@@ -159,24 +254,6 @@ public class ControlFreak {
         }
 
     }
-
-    // Set Dice in UI:
-    public void rolldice(MouseEvent mouseEvent) {
-        // This seems to work!
-        System.out.println("dice clicked!");
-
-        int diceShifterA = game.getDiceA() * 100 - 100;
-        int diceShifterB = game.getDiceB() * 100 - 100;
-        diceViewA.setViewport(new Rectangle2D(600, 0, 100, 170));
-        diceViewB.setViewport(new Rectangle2D(600, 0, 100, 170));
-        dice.play();
-        waitForIt.setOnFinished(e -> {
-            diceViewA.setViewport(new Rectangle2D(diceShifterA, 0, 100, 170));
-            diceViewB.setViewport(new Rectangle2D(diceShifterB, 0, 100, 170));
-        });
-        waitForIt.play();
-    }
-
 
     // The following is for implementing chance cards where the player can pick a field (street-type)!
 
@@ -305,6 +382,86 @@ public class ControlFreak {
         //board.squares[chosenField].show(pieces[playersTurn])
     }
 
+    // Translating square index to respective stackpanes
+    private StackPane getSquare(int x){
+        StackPane name;
+        switch(x){
+            case 1:
+                name = one;
+                break;
+            case 2:
+                name = two;
+                break;
+            case 3:
+                name = three;
+                break;
+            case 4:
+                name = four;
+                break;
+            case 5:
+                name = five;
+                break;
+            case 6:
+                name = six;
+                break;
+            case 7:
+                name = seven;
+                break;
+            case 8:
+                name = eight;
+                break;
+            case 9:
+                name = nine;
+                break;
+            case 10:
+                name = ten;
+                break;
+            case 11:
+                name = eleven;
+                break;
+            case 12:
+                name = twelve;
+                break;
+            case 13:
+                name = thirteen;
+                break;
+            case 14:
+                name = fourteen;
+                break;
+            case 15:
+                name = fifteen;
+                break;
+            case 16:
+                name = sixteen;
+                break;
+            case 17:
+                name = seventeen;
+                break;
+            case 18:
+                name = eighteen;
+                break;
+            case 19:
+                name = nineteen;
+                break;
+            case 20:
+                name = twenty;
+                break;
+            case 21:
+                name = twentyone;
+                break;
+            case 22:
+                name = twentytwo;
+                break;
+            case 23:
+                name = twentythree;
+                break;
+            default:
+                name = zero;
+        }
+        return name;
+    }
+
+
     // Getting Button clicks
 
     public void mainButtonClick() {
@@ -325,5 +482,20 @@ public class ControlFreak {
         noButtonClicked = true;
     }
 
+    public void playDogSound(MouseEvent mouseEvent) {
+        dogSound.play();
+    }
+
+    public void playCatSound(MouseEvent mouseEvent) {
+        catSound.play();
+    }
+
+    public void playCarSound(MouseEvent mouseEvent) {
+        carSound.play();
+    }
+
+    public void playBoatSound(MouseEvent mouseEvent) {
+        boatSound.play();
+    }
 }
 

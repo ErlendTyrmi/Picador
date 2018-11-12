@@ -6,7 +6,7 @@ import java.util.Map;
 public class DanishText {
 
     public static String greeting ="Klar for en omgang Mata.. jeg mener Picador?";
-    public static String choosePiece = "Klar for en omgang Mata.. jeg mener Picador?\nVælg din favoritfigur, og klik derefter start! (Minimum 2 spillere.)";
+    public static String choosePiece = "Klar for en omgang Mata.. jeg mener Picador? Vælg din favoritfigur, og klik derefter START!";
     public static String dog = "Hund";
     public static String cat = "Kat";
     public static String car = "Bil";

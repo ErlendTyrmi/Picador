@@ -5,9 +5,9 @@ public class Player {
     private String name;
     private boolean inPrison = false, getOutOfPrison = false;
 
-    public Player(String name, int money) {
+    public Player(String name) {
         this.name = name;
-        this.money = money;
+        money = 20;
         position = 0;
 
     }
