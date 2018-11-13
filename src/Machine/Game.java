@@ -5,7 +5,7 @@ public class Game {
     private final String[] playerNames = {"Hund", "Kat", "Bil", "Skib"};
     private String currentFieldText;
     private Turn turn;
-    private int diceA, diceB, cash, newPosition;
+    private int diceRoll, cash, newPosition;
     private boolean won = false;
     private DanishText text = new DanishText();
     private Board board = new Board();
@@ -21,17 +21,35 @@ public class Game {
     }
 
     public void playTurn(Player currentPlayer){
-        diceA = dice.roll();
-        diceB = dice.roll();
-        currentPlayer.move(diceA, diceB);
+        diceRoll = dice.roll();
+        currentPlayer.move(diceRoll);
         newPosition = currentPlayer.getPosition();
         // Long one: Get price of square at currentPlayer's position;
         currentPlayer.setMoney(board.getSquares(currentPlayer.getPosition()).getPrice());
+
+        doBoardActions(currentPlayer);
+    }
+
+    private void doBoardActions(Player currentPlayer){
+        //Check for has passed Start status and reset
         if (currentPlayer.hasPassedStart()){
             currentPlayer.setMoney(-1);
         }
+        // Get the type of player's current position
+        String currentSquareType = board.getSquares(currentPlayer.getPosition()).getType();
 
-        // More stuff will come.
+        // Check is it's a street
+
+
+        if (currentSquareType.equals("goToPrison")){
+            System.out.println(currentPlayer.getName() + " is in prison");
+            currentPlayer.setInPrison(true);
+            // TODO: Implement prison after getting text in UI!
+        } else if (currentSquareType.equals("chance")){
+            System.out.println(currentPlayer.getName() + ", you got a chance card!");
+        }
+
+
     }
 
     public String getText(){
@@ -43,9 +61,6 @@ public class Game {
     }
 
     public int getDiceA(){
-        return diceA;
-    }
-    public int getDiceB(){
-        return diceB;
+        return diceRoll;
     }
 }

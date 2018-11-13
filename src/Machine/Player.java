@@ -16,16 +16,17 @@ public class Player {
         return position;
     }
 
-    public void move(int diceA, int diceB) {
+    public void move(int diceRoll) {
         // When making movements: Use getNextSquare
-        position += diceA + diceB;
-        // Check for out of bounds.
+        position += diceRoll;
+        // Check for out of bounds and passedStart.
         if (position == 24){
             position = 0;
         } else if (position > 23) {
             position -= 24;
             passedStart = true;
         }
+
     }
 
     private int getNextSquare(){
@@ -60,9 +61,9 @@ public class Player {
         return inPrison;
     }
 
-    public void setInPrison(boolean inPrison) {
-        this.inPrison = inPrison;
-    }
+    public void setInPrison(boolean inPrison) { this.inPrison = inPrison; }
+
+    public void setPosition(){ this.position = position; }
 
     public boolean hasGetOutOfPrison() {
         return getOutOfPrison;
@@ -71,6 +72,7 @@ public class Player {
     public boolean hasPassedStart() {
         return passedStart;
     }
+
     public void setPassedStart(boolean passedStart) {
         this.passedStart = passedStart;
     }

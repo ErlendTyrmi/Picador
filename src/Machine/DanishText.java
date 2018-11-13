@@ -5,18 +5,18 @@ import java.util.Map;
 
 public class DanishText {
 
-    public static String greeting ="Klar for en omgang Mata.. jeg mener Picador?";
-    public static String choosePiece = "Klar for en omgang Mata.. jeg mener Picador? Vælg din favoritfigur, og klik derefter START!";
-    public static String dog = "Hund";
-    public static String cat = "Kat";
-    public static String car = "Bil";
-    public static String boat = "Båd";
-    public static String player = "Spiller";
-    public static String yourTurn = ", så er det din tur. Klik på terningerne for at spille!";
-    public static String rollDice = "Slå terningerne!";
-    public static String passedStart = ", du har passeret start og får 1M!";
+    public final static String greeting ="Klar for en omgang Mata.. jeg mener Picador?";
+    public final static String choosePiece = "Klar for en omgang Mata.. jeg mener Picador? Vælg din favoritfigur, og klik derefter START!";
+    public final static String dog = "Hund";
+    public final static String cat = "Kat";
+    public final static String car = "Bil";
+    public final static String boat = "Båd";
+    public final static String player = "Spiller";
+    public final static String yourTurn = ", så er det din tur. Klik på terningerne for at spille!";
+    public final static String rollDice = "Slå terningerne!";
+    public final static String passedStart = ", du har passeret start og får 1M!";
 
-    public static  String[] squareDescriptions = {
+    public final static  String[] squareDescriptions = {
             "Start\n\nDu får 1M når du passerer Start! Det lønner sig at stå tidlig op.",
             "Burgerbaren\n\nGod burger, god pris.",
             "Pizzeria\n\nDen bedste pizza nord for Italien! Enkelt og godt!",
@@ -43,7 +43,7 @@ public class DanishText {
             "Promenaden\n\nByens fineste gade. Her kan man købe dyrt tøj og dyre smørrebrød."
     };
 
-    public static String[] squareTitles = {
+    public final static String[] squareTitles = {
             "Start",
             "Burgerbaren",
             "Pizzeria",

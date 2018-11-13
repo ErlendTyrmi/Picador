@@ -37,7 +37,7 @@ public class ControlFreak {
     private Player currentPlayer;
     private Player[] players;
     @FXML
-    private ImageView diceViewA, diceViewB, dogToken, catToken, carToken, boatToken;
+    private ImageView diceViewA, dogToken, catToken, carToken, boatToken;
     @FXML
     private ImageView[] tokens;
     @FXML
@@ -55,7 +55,7 @@ public class ControlFreak {
     @FXML
     private Label dogMoney, catMoney, carMoney, boatMoney;
     @FXML
-    private HBox dogMoneyBox, catMoneyBox, carMoneyBox, boatMoneyBox;
+    private HBox dogMoneyBox, catMoneyBox, carMoneyBox, boatMoneyBox, diceBox;
     @FXML
     private HBox buttonBox, rightTrueBox, characterChoiceBox, characterChoiceImageBox;
     @FXML
@@ -106,13 +106,10 @@ public class ControlFreak {
         System.out.println("dice clicked!");
         playTurn();
         int diceShifterA = game.getDiceA() * 100 - 100;
-        int diceShifterB = game.getDiceB() * 100 - 100;
         diceViewA.setViewport(new Rectangle2D(600, 0, 100, 170));
-        diceViewB.setViewport(new Rectangle2D(600, 0, 100, 170));
         dice.play();
         waitForIt.setOnFinished(e -> {
             diceViewA.setViewport(new Rectangle2D(diceShifterA, 0, 100, 170));
-            diceViewB.setViewport(new Rectangle2D(diceShifterB, 0, 100, 170));
             movePiece(currentPlayer, currentPlayer.getPosition());
             if (currentPlayer.hasPassedStart()){
                 showText(DanishText.squareDescriptions[currentPlayer.getPosition()]+ "\n\n" + currentPlayer.getName() + DanishText.passedStart );
@@ -231,8 +228,8 @@ public class ControlFreak {
 
             turnIndex = (int)(Math.random()*numberOfPLayers);
             System.out.println("Starting with player " + turnIndex + ".");
-
-            System.out.println("All is set up. Let the games begin!");
+            diceBox.setVisible(true);
+            System.out.println("All is set up. Dice now visible: Let the games begin!");
         });
 
     }

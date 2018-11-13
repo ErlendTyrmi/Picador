@@ -21,7 +21,7 @@ public class Main extends Application {
         primaryStage.setTitle("PICADOR - the ripoff board game");
         primaryStage.setMinWidth(1024);
         primaryStage.setMinHeight(710);
-        primaryStage.setMaximized(true);
+        //primaryStage.setMaximized(true);
         primaryStage.show();
     }
 
