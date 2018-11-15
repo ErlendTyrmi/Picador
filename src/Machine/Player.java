@@ -3,7 +3,7 @@ package Machine;
 public class Player {
     private int position, money;
     private String name;
-    private boolean inPrison = false, getOutOfPrison = false;
+    private boolean inPrison = false, getOutOfPrison = false, passedStart = false;
 
     public Player(String name, int money) {
         this.name = name;
@@ -16,24 +16,38 @@ public class Player {
         return position;
     }
 
-    public void setPosition(int position) {
-        if (position > 23) {
+    public void move(int diceRoll) {
+        // When making movements: Use getNextSquare
+        position += diceRoll;
+        // Check for out of bounds and passedStart.
+        if (position == 24) {
+            position = 0;
+        } else if (position > 23) {
             position -= 24;
+            passedStart = true;
         }
-        this.position = position;
+
+    }
+
+    private int getNextSquare() {
+        int nextPosition = position + 1;
+        if (nextPosition == 24) {
+            nextPosition = 0;
+        }
+        return nextPosition;
     }
 
     public int getMoney() {
         return money;
     }
 
-    public void setMoney(int money) {
-
-        this.money = money;
+    public void setMoney(int pay) {
+        this.money -= pay;
     }
 
     public boolean isBroke() {
-        if (money >= 0) {
+        if (money <= 0) {
+            money = 0;
             return true;
         } else {
             return false;
@@ -52,7 +66,19 @@ public class Player {
         this.inPrison = inPrison;
     }
 
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
     public boolean hasGetOutOfPrison() {
         return getOutOfPrison;
+    }
+
+    public boolean hasPassedStart() {
+        return passedStart;
+    }
+
+    public void setPassedStart(boolean passedStart) {
+        this.passedStart = passedStart;
     }
 }

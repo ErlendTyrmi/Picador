@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -40,146 +41,137 @@
                         <RowConstraints minHeight="120.0" prefHeight="120.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <StackPane id="zero" styleClass="street" fx:id="zero" onMouseClicked="#fieldZeroChosen" prefHeight="90.0" prefWidth="90.0" GridPane.columnIndex="6" GridPane.rowIndex="6" />
-                        <StackPane id="one" styleClass="street" fx:id="one" onMouseClicked="#fieldOneChosen" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="5" GridPane.rowIndex="6">
-                            <GridPane.margin>
-                                <Insets top="30.0" />
-                            </GridPane.margin>
-                        </StackPane>
-                        <StackPane id="two" styleClass="street" fx:id="two" onMouseClicked="#fieldTwoChosen" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="4" GridPane.rowIndex="6">
-                            <GridPane.margin>
-                                <Insets top="30.0" />
-                            </GridPane.margin>
-                        </StackPane>
-                        <StackPane id="three" styleClass="street" fx:id="three" onMouseClicked="#fieldThreeChosen" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="3" GridPane.rowIndex="6">
-                            <GridPane.margin>
-                                <Insets top="30.0" />
-                            </GridPane.margin>
-                        </StackPane>
-                        <StackPane id="four" styleClass="street" fx:id="four" onMouseClicked="#fieldFourChosen" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="2" GridPane.rowIndex="6">
-                            <GridPane.margin>
-                                <Insets top="30.0" />
-                            </GridPane.margin>
-                        </StackPane>
-                        <StackPane id="five" styleClass="street" fx:id="five" onMouseClicked="#fieldFiveChosen" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="1" GridPane.rowIndex="6">
-                            <GridPane.margin>
-                                <Insets top="30.0" />
-                            </GridPane.margin>
-                        </StackPane>
-                        <StackPane id="six" styleClass="street" fx:id="six" onMouseClicked="#fieldSixChosen" prefHeight="90.0" prefWidth="90" GridPane.rowIndex="6" />
-                        <StackPane id="seven" styleClass="street" fx:id="seven" onMouseClicked="#fieldSevenChosen" prefHeight="90.0" prefWidth="90" GridPane.rowIndex="5">
-                            <GridPane.margin>
-                                <Insets right="30.0" />
-                            </GridPane.margin>
-                        </StackPane>
-                        <StackPane id="eight" styleClass="street" fx:id="eight" onMouseClicked="#fieldEightChosen" prefHeight="90.0" prefWidth="90" GridPane.rowIndex="4">
-                            <GridPane.margin>
-                                <Insets right="30.0" />
-                            </GridPane.margin>
-                        </StackPane>
-                        <StackPane id="nine" styleClass="street" fx:id="nine" onMouseClicked="#fieldNineChosen" prefHeight="90.0" prefWidth="90" GridPane.rowIndex="3">
-                            <GridPane.margin>
-                                <Insets right="30.0" />
-                            </GridPane.margin>
-                        </StackPane>
-                        <StackPane id="ten" styleClass="street" fx:id="ten" onMouseClicked="#fieldTenChosen" prefHeight="90.0" prefWidth="90" GridPane.rowIndex="2">
-                            <GridPane.margin>
-                                <Insets right="30.0" />
-                            </GridPane.margin>
+                        <StackPane id="zero" fx:id="zero" onMouseClicked="#fieldZeroChosen" prefHeight="90.0" prefWidth="90.0" styleClass="street" GridPane.columnIndex="6" GridPane.rowIndex="6">
                             <children>
-                                <ImageView>
-                                    <image>
-                                        <Image url="@../images/monopoly-dog-owned.png" />
-                                    </image>
-                                </ImageView>
-                                <ImageView>
+                                <ImageView fx:id="dogToken" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#playDogSound">
                                     <image>
                                         <Image url="@../images/monopoly-dog.png" />
                                     </image>
                                 </ImageView>
-                            </children>
-                        </StackPane>
-                        <StackPane id="eleven" styleClass="street" fx:id="eleven" onMouseClicked="#fieldElevenChosen" prefHeight="90.0" prefWidth="90" GridPane.rowIndex="1">
-                            <GridPane.margin>
-                                <Insets right="30.0" />
-                            </GridPane.margin>
-                            <children>
-                                <ImageView>
+                                <ImageView fx:id="catToken" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#playCatSound">
                                     <image>
-                                        <Image url="@../images/monopoly-dog-owned.png" />
+                                        <Image url="@../images/monopoly-cat.png" />
                                     </image>
                                 </ImageView>
-                            </children>
-                        </StackPane>
-                        <StackPane id="twelve" styleClass="street" fx:id="twelve" onMouseClicked="#fieldTwelveChosen" prefHeight="90.0" prefWidth="90" />
-                        <StackPane id="thirteen" styleClass="street" fx:id="thirteen" onMouseClicked="#fieldThirteenChosen" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="1">
-                            <GridPane.margin>
-                                <Insets bottom="30.0" />
-                            </GridPane.margin>
-                        </StackPane>
-                        <StackPane id="fourteen" styleClass="street" fx:id="fourteen" onMouseClicked="#fieldFourteenChosen" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="2">
-                            <GridPane.margin>
-                                <Insets bottom="30.0" />
-                            </GridPane.margin>
-                        </StackPane>
-                        <StackPane id="fifteen" styleClass="street" fx:id="fifteen" onMouseClicked="#fieldFifteenChosen" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="3">
-                            <GridPane.margin>
-                                <Insets bottom="30.0" />
-                            </GridPane.margin>
-                        </StackPane>
-                        <StackPane id="sixteen" styleClass="street" fx:id="sixteen" onMouseClicked="#fieldSixteenChosen" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="4">
-                            <GridPane.margin>
-                                <Insets bottom="30.0" />
-                            </GridPane.margin>
-                            <children>
-                                <ImageView>
+                                <ImageView fx:id="carToken" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#playCarSound">
+                                    <image>
+                                        <Image url="@../images/monopoly-car.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView fx:id="boatToken" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#playBoatSound">
                                     <image>
                                         <Image url="@../images/monopoly-boat.png" />
                                     </image>
                                 </ImageView>
                             </children>
                         </StackPane>
-                        <StackPane id="seventeen" styleClass="street" fx:id="seventeen" onMouseClicked="#fieldSeventeenChosen" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="5">
+                        <StackPane id="one" fx:id="one" onMouseClicked="#fieldOneChosen" prefHeight="90.0" prefWidth="90" styleClass="street" GridPane.columnIndex="5" GridPane.rowIndex="6">
+                            <GridPane.margin>
+                                <Insets top="30.0" />
+                            </GridPane.margin>
+                        </StackPane>
+                        <StackPane id="two" fx:id="two" onMouseClicked="#fieldTwoChosen" prefHeight="90.0" prefWidth="90" styleClass="street" GridPane.columnIndex="4" GridPane.rowIndex="6">
+                            <GridPane.margin>
+                                <Insets top="30.0" />
+                            </GridPane.margin>
+                        </StackPane>
+                        <StackPane id="three" fx:id="three" onMouseClicked="#fieldThreeChosen" prefHeight="90.0" prefWidth="90" styleClass="street" GridPane.columnIndex="3" GridPane.rowIndex="6">
+                            <GridPane.margin>
+                                <Insets top="30.0" />
+                            </GridPane.margin>
+                        </StackPane>
+                        <StackPane id="four" fx:id="four" onMouseClicked="#fieldFourChosen" prefHeight="90.0" prefWidth="90" styleClass="street" GridPane.columnIndex="2" GridPane.rowIndex="6">
+                            <GridPane.margin>
+                                <Insets top="30.0" />
+                            </GridPane.margin>
+                        </StackPane>
+                        <StackPane id="five" fx:id="five" onMouseClicked="#fieldFiveChosen" prefHeight="90.0" prefWidth="90" styleClass="street" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                            <GridPane.margin>
+                                <Insets top="30.0" />
+                            </GridPane.margin>
+                        </StackPane>
+                        <StackPane id="six" fx:id="six" onMouseClicked="#fieldSixChosen" prefHeight="90.0" prefWidth="90" styleClass="street" GridPane.rowIndex="6" />
+                        <StackPane id="seven" fx:id="seven" onMouseClicked="#fieldSevenChosen" prefHeight="90.0" prefWidth="90" styleClass="street" GridPane.rowIndex="5">
+                            <GridPane.margin>
+                                <Insets right="30.0" />
+                            </GridPane.margin>
+                        </StackPane>
+                        <StackPane id="eight" fx:id="eight" onMouseClicked="#fieldEightChosen" prefHeight="90.0" prefWidth="90" styleClass="street" GridPane.rowIndex="4">
+                            <GridPane.margin>
+                                <Insets right="30.0" />
+                            </GridPane.margin>
+                        </StackPane>
+                        <StackPane id="nine" fx:id="nine" onMouseClicked="#fieldNineChosen" prefHeight="90.0" prefWidth="90" styleClass="street" GridPane.rowIndex="3">
+                            <GridPane.margin>
+                                <Insets right="30.0" />
+                            </GridPane.margin>
+                        </StackPane>
+                        <StackPane id="ten" fx:id="ten" onMouseClicked="#fieldTenChosen" prefHeight="90.0" prefWidth="90" styleClass="street" GridPane.rowIndex="2">
+                            <GridPane.margin>
+                                <Insets right="30.0" />
+                            </GridPane.margin>
+                        </StackPane>
+                        <StackPane id="eleven" fx:id="eleven" onMouseClicked="#fieldElevenChosen" prefHeight="90.0" prefWidth="90" styleClass="street" GridPane.rowIndex="1">
+                            <GridPane.margin>
+                                <Insets right="30.0" />
+                            </GridPane.margin>
+                        </StackPane>
+                        <StackPane id="twelve" fx:id="twelve" onMouseClicked="#fieldTwelveChosen" prefHeight="90.0" prefWidth="90" styleClass="street" />
+                        <StackPane id="thirteen" fx:id="thirteen" onMouseClicked="#fieldThirteenChosen" prefHeight="90.0" prefWidth="90" styleClass="street" GridPane.columnIndex="1">
                             <GridPane.margin>
                                 <Insets bottom="30.0" />
                             </GridPane.margin>
-                            <children>
-                                <ImageView>
-                                    <image>
-                                        <Image url="@../images/monopoly-boat-owned.png" />
-                                    </image>
-                                </ImageView>
-                            </children>
                         </StackPane>
-                        <StackPane id="eighteen" styleClass="street" fx:id="eighteen" onMouseClicked="#fieldEighteenChosen" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="6" />
-                        <StackPane id="nineteen" styleClass="street" fx:id="nineteen" onMouseClicked="#fieldNineteenChosen" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="6" GridPane.rowIndex="1">
+                        <StackPane id="fourteen" fx:id="fourteen" onMouseClicked="#fieldFourteenChosen" prefHeight="90.0" prefWidth="90" styleClass="street" GridPane.columnIndex="2">
+                            <GridPane.margin>
+                                <Insets bottom="30.0" />
+                            </GridPane.margin>
+                        </StackPane>
+                        <StackPane id="fifteen" fx:id="fifteen" onMouseClicked="#fieldFifteenChosen" prefHeight="90.0" prefWidth="90" styleClass="street" GridPane.columnIndex="3">
+                            <GridPane.margin>
+                                <Insets bottom="30.0" />
+                            </GridPane.margin>
+                        </StackPane>
+                        <StackPane id="sixteen" fx:id="sixteen" onMouseClicked="#fieldSixteenChosen" prefHeight="90.0" prefWidth="90" styleClass="street" GridPane.columnIndex="4">
+                            <GridPane.margin>
+                                <Insets bottom="30.0" />
+                            </GridPane.margin>
+                        </StackPane>
+                        <StackPane id="seventeen" fx:id="seventeen" onMouseClicked="#fieldSeventeenChosen" prefHeight="90.0" prefWidth="90" styleClass="street" GridPane.columnIndex="5">
+                            <GridPane.margin>
+                                <Insets bottom="30.0" />
+                            </GridPane.margin>
+                        </StackPane>
+                        <StackPane id="eighteen" fx:id="eighteen" onMouseClicked="#fieldEighteenChosen" prefHeight="90.0" prefWidth="90" styleClass="street" GridPane.columnIndex="6" />
+                        <StackPane id="nineteen" fx:id="nineteen" onMouseClicked="#fieldNineteenChosen" prefHeight="90.0" prefWidth="90" styleClass="street" GridPane.columnIndex="6" GridPane.rowIndex="1">
                             <GridPane.margin>
                                 <Insets left="30.0" />
                             </GridPane.margin>
                         </StackPane>
-                        <StackPane id="twenty" styleClass="street" fx:id="twenty" onMouseClicked="#fieldTwentyChosen" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="6" GridPane.rowIndex="2">
+                        <StackPane id="twenty" fx:id="twenty" onMouseClicked="#fieldTwentyChosen" prefHeight="90.0" prefWidth="90" styleClass="street" GridPane.columnIndex="6" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets left="30.0" />
                             </GridPane.margin>
                         </StackPane>
-                        <StackPane id="twentyone" styleClass="street" fx:id="twentyone" onMouseClicked="#fieldTwentyoneChosen" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="6" GridPane.rowIndex="3">
+                        <StackPane id="twentyone" fx:id="twentyone" onMouseClicked="#fieldTwentyoneChosen" prefHeight="90.0" prefWidth="90" styleClass="street" GridPane.columnIndex="6" GridPane.rowIndex="3">
                             <GridPane.margin>
                                 <Insets left="30.0" />
                             </GridPane.margin>
                         </StackPane>
-                        <StackPane id="twentytwo" styleClass="street" fx:id="twentytwo" onMouseClicked="#fieldTwentytwoChosen" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="6" GridPane.rowIndex="4">
+                        <StackPane id="twentytwo" fx:id="twentytwo" onMouseClicked="#fieldTwentytwoChosen" prefHeight="90.0" prefWidth="90" styleClass="street" GridPane.columnIndex="6" GridPane.rowIndex="4">
                             <GridPane.margin>
                                 <Insets left="30.0" />
                             </GridPane.margin>
                         </StackPane>
-                        <StackPane id="twentythree" styleClass="street" fx:id="twentythree" onMouseClicked="#fieldTwentythreeChosen" prefHeight="90.0" prefWidth="90" GridPane.columnIndex="6" GridPane.rowIndex="5">
+                        <StackPane id="twentythree" fx:id="twentythree" onMouseClicked="#fieldTwentythreeChosen" prefHeight="90.0" prefWidth="90" styleClass="street" GridPane.columnIndex="6" GridPane.rowIndex="5">
                             <GridPane.margin>
                                 <Insets left="30.0" />
                             </GridPane.margin>
                         </StackPane>
-                        <VBox id="messages" fx:id="messages" alignment="CENTER" opacity="0.8" prefHeight="450.0" prefWidth="450.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="1" GridPane.rowSpan="5">
-                            <FlowPane id="card" fx:id="card" columnHalignment="CENTER" hgap="20.0" maxWidth="430" minHeight="100.0" minWidth="430" rowValignment="TOP" visible="true">
+                        <VBox id="messageBox" fx:id="messageBox" alignment="CENTER" opacity="0.9" prefHeight="450.0" prefWidth="450.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="1" GridPane.rowSpan="5">
+                            <FlowPane id="card" fx:id="card" columnHalignment="CENTER" hgap="20.0" maxWidth="430" minHeight="100.0" minWidth="430" rowValignment="TOP">
                                 <children>
+                                    <VBox fx:id="tokensBox" alignment="TOP_CENTER" prefHeight="90.0" prefWidth="430.0" />
                                     <Text fx:id="gameText" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="410">
                                         <FlowPane.margin>
                                             <Insets left="10.0" top="20.0" />
@@ -188,14 +180,59 @@
                                             <Font size="14.0" />
                                         </font>
                                     </Text>
-                                    <VBox alignment="CENTER" minWidth="430.0" prefHeight="60.0" prefWidth="100.0">
+                                    <HBox fx:id="characterChoiceImageBox" alignment="TOP_CENTER" prefHeight="106.0" prefWidth="430.0">
                                         <children>
-                                            <Button fx:id="mainButton" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#mainButtonClick" text="OK i get it!" />
+                                            <ImageView fx:id="messageDogToken" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#playDogSound">
+                                                <image>
+                                                    <Image url="@../images/monopoly-dog.png" />
+                                                </image>
+                                            </ImageView>
+                                            <ImageView fx:id="messageCatToken" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#playCatSound">
+                                                <image>
+                                                    <Image url="@../images/monopoly-cat.png" />
+                                                </image>
+                                            </ImageView>
+                                            <ImageView fx:id="messageCarToken" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#playCarSound">
+                                                <image>
+                                                    <Image url="@../images/monopoly-car.png" />
+                                                </image>
+                                            </ImageView>
+                                            <ImageView fx:id="messageBoatToken" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#playBoatSound">
+                                                <image>
+                                                    <Image url="@../images/monopoly-boat.png" />
+                                                </image>
+                                            </ImageView>
+                                        </children>
+                                    </HBox>
+                                    <HBox fx:id="characterChoiceBox" alignment="TOP_CENTER" prefHeight="40.0" prefWidth="430.0">
+                                        <children>
+                                            <CheckBox fx:id="dogCheckBox" minWidth="90.0" mnemonicParsing="false" text="Hund" />
+                                            <CheckBox fx:id="catCheckBox" minWidth="90.0" mnemonicParsing="false" text="Kat" />
+                                            <CheckBox fx:id="carCheckBox" minWidth="90.0" mnemonicParsing="false" text="Bil" />
+                                            <CheckBox fx:id="boatCheckBox" minWidth="90.0" mnemonicParsing="false" text="Båd" />
+                                        </children>
+                                    </HBox>
+                                    <HBox fx:id="buttonBox" alignment="CENTER" minWidth="430.0" prefHeight="60.0" prefWidth="100.0">
+                                        <children>
+                                            <Button fx:id="okButton" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#mainButtonClick" text="OK!" />
                                         </children>
                                         <FlowPane.margin>
                                             <Insets />
                                         </FlowPane.margin>
-                                    </VBox>
+                                    </HBox>
+                                    <HBox fx:id="rightTrueBox" alignment="CENTER" minWidth="430.0" prefHeight="60.0" prefWidth="100.0">
+                                        <children>
+                                            <Button fx:id="noButton" alignment="CENTER" cancelButton="true" mnemonicParsing="false" onAction="#noButtonClick" text="Nej">
+                                                <opaqueInsets>
+                                                    <Insets />
+                                                </opaqueInsets>
+                                                <HBox.margin>
+                                                    <Insets right="120.0" />
+                                                </HBox.margin>
+                                            </Button>
+                                            <Button fx:id="yesButton" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#yesButtonClick" text="Ja" />
+                                        </children>
+                                    </HBox>
                                 </children>
                             </FlowPane>
                         </VBox>
@@ -205,7 +242,7 @@
                     <children>
                         <VBox id="accountBox" prefHeight="400.0" prefWidth="334.0">
                             <children>
-                                <HBox fx:id="dogMoneyBox" alignment="CENTER_RIGHT" prefHeight="100">
+                                <HBox fx:id="dogMoneyBox" alignment="CENTER_RIGHT" prefHeight="100" visible="false">
                                     <Label id="dogMoney" fx:id="dogMoney" alignment="CENTER_RIGHT" prefWidth="120.0" text="20">
                                     </Label>
                                 </HBox>
@@ -214,16 +251,16 @@
                                     </Label>
                                 </HBox>
                                 <HBox fx:id="carMoneyBox" alignment="CENTER_RIGHT" prefHeight="100" visible="false">
-                                    <Label id="carMoney" fx:id="carMoney" alignment="CENTER_RIGHT" prefWidth="120.0" >
+                                    <Label id="carMoney" fx:id="carMoney" alignment="CENTER_RIGHT" prefWidth="120.0">
                                     </Label>
                                 </HBox>
-                                <HBox fx:id="boatMoneyBox" alignment="CENTER_RIGHT" prefHeight="100">
+                                <HBox fx:id="boatMoneyBox" alignment="CENTER_RIGHT" prefHeight="100" visible="false">
                                     <Label id="boatMoney" fx:id="boatMoney" alignment="CENTER_RIGHT" prefWidth="120.0" text="20">
                                     </Label>
                                 </HBox>
                             </children>
                         </VBox>
-                        <HBox id="diceBox" fx:id="diceBox" onMouseClicked="#rolldice" prefHeight="310.0" prefWidth="334.0">
+                        <HBox id="diceBox" fx:id="diceBox" prefHeight="310.0" prefWidth="334.0" visible="false">
                             <children>
                                 <ImageView fx:id="diceViewA">
                                     <image>
@@ -234,17 +271,6 @@
                                     </viewport>
                                     <HBox.margin>
                                         <Insets left="40.0" top="50.0" />
-                                    </HBox.margin>
-                                </ImageView>
-                                <ImageView fx:id="diceViewB">
-                                    <image>
-                                        <Image url="@../images/dice.png" />
-                                    </image>
-                                    <viewport>
-                                        <Rectangle2D height="170.0" minX="0" minY="0" width="100.0" />
-                                    </viewport>
-                                    <HBox.margin>
-                                        <Insets left="20.0" top="70.0" />
                                     </HBox.margin>
                                 </ImageView>
                             </children>
