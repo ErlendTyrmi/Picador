@@ -91,7 +91,7 @@ public class Game {
                 winnerIndex = i;
             }
         }
-        System.out.println(players[winnerIndex] + " won the game!");
+        System.out.println(players[winnerIndex].getName() + " won the game with " + highestSum + " points!");
     }
 
     public int getDiceA(){

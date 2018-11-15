@@ -6,7 +6,6 @@ import Machine.Player;
 import Machine.Square;
 import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
@@ -35,7 +34,7 @@ public class ControlFreak {
     private AudioClip[] tokenSounds;
 
     private PauseTransition justASec = new PauseTransition(Duration.millis(666));
-    private PauseTransition justTwoSec = new PauseTransition(Duration.millis(1200));
+    private PauseTransition justTwoSec = new PauseTransition(Duration.millis(2000));
     private PauseTransition diceRollPauseTransition = new PauseTransition(Duration.millis(1050)); // Timed especially for dice
     private FadeTransition fadeOut = new FadeTransition(Duration.millis(555));
     private int chosenField, numberOfPLayers, fortune, turnIndex, diceShifterA;
@@ -279,12 +278,12 @@ public class ControlFreak {
             movePiece(turnIndex, currentPlayer.getPosition());
 
             // Helper function for handling message about what happens after dice roll.
-            handleCurrentFieldMessages();
+            handleCurrentSquare();
         });
         diceRollPauseTransition.play();
     }
 
-    private void handleCurrentFieldMessages() {
+    private void handleCurrentSquare() {
 
         // Handle "current field" messages. (Adding "passed start" and other rules if relevant)
         tokensBox.getChildren().add(messageTokens[turnIndex]);
@@ -334,6 +333,7 @@ public class ControlFreak {
         // Check if player is broke, then game ends
         if (currentPlayer.isBroke()){
             game.findWinnerIndex(players);
+            okButton.setDisable(true);
             gameEnd(turnIndex);
         }
 
@@ -394,6 +394,7 @@ public class ControlFreak {
             tokensBox.getChildren().remove(tokens[turnIndex]);
             tokensBox.getChildren().add(tokens[game.getWinnerIndex()]);
             okButton.setText(textBook.exit);
+            okButton.setDisable(false);
             okButton.setOnAction(eEnd -> {
                 System.exit(0);
             });
