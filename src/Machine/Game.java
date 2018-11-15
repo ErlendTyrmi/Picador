@@ -3,7 +3,7 @@ package Machine;
 public class Game {
     //private Player[] players;
     private final String[] playerNames = {"Hund", "Kat", "Bil", "Skib"};
-    private String currentSquareType, currentSquareOwner;
+    private String currentSquareType, currentSquareOwnerName;
     private Turn turn;
     private int diceRoll, cash, newPosition , winnerIndex;
     private boolean youBoughtStreet = false, youPaidRent = false, youOwnStreet = false, chance,  gameOver = false;
@@ -12,6 +12,7 @@ public class Game {
     private Dice dice = new Dice();
     private Player currentPlayer;
     private Square currentSquare;
+    private Street adjacentStreet;
 
     public Game(Player[] players){
         //this.players = players;
@@ -44,16 +45,32 @@ public class Game {
         // Check is it's a street
         if (currentSquareType.equals("street")){
             // Casting is everything.
-            currentSquareOwner = ((Street) currentSquare).getOwner().getName();
+            currentSquareOwnerName = ((Street) currentSquare).getOwner().getName();
 
-            if (currentSquareOwner.equals("Banken")){
+            // Decide owner of adjacent street. (One of them will always be a street.)
+            if (board.getSquares((currentPlayer.getPosition()-1)).getType().equals("street")){
+                System.out.println("Street before");
+                adjacentStreet = (Street) board.getSquares((currentPlayer.getPosition()-1));
+            } else {
+                adjacentStreet = (Street) board.getSquares((currentPlayer.getPosition()+1));
+                System.out.println("Street after");
+            }
+            System.out.println("currentSquareOwnerName: " + currentSquareOwnerName + " adjacentStreet.getOwner: " + adjacentStreet.getOwner().getName());
+
+            if (currentSquareOwnerName.equals("Banken")){
                 ((Street) currentSquare).setOwner(currentPlayer);
                 youBoughtStreet = true;
                 System.out.println(currentSquare.getTitle() + " is now owned by " + currentPlayer.getName());
-            } else if (currentSquareOwner.equals(currentPlayer.getName())){
+            } else if (currentSquareOwnerName.equals(currentPlayer.getName())){
                 System.out.println(currentPlayer.getName() + " already owns " + currentSquare.getTitle());
                 youOwnStreet = true;
-            } else {
+            } else if(adjacentStreet.getOwner().getName().equals(currentSquareOwnerName)){
+                // If next or previous has same owner name, double price!
+                System.out.println("This street is double price.");
+                adjacentStreet.setPrice(adjacentStreet.getPrice()*2);
+                ((Street) currentSquare).setPrice(currentSquare.getPrice()*2);
+                youPaidRent = true;
+            } else{
                 ((Street) currentSquare).getOwner().setMoney(- currentSquare.getPrice());
                 System.out.println(((Street) currentSquare).getOwner().getName() + "'s account incremented to " +
                         ((Street) currentSquare).getOwner().getMoney());
@@ -126,8 +143,8 @@ public class Game {
         return youOwnStreet;
     }
 
-    public String getCurrentSquareOwner() {
-        return currentSquareOwner;
+    public String getCurrentSquareOwnerName() {
+        return currentSquareOwnerName;
     }
 
     public int getWinnerIndex() {

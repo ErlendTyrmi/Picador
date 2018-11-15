@@ -25,6 +25,9 @@ public class Street extends Square {
     public int getPrice() {
         return super.getPrice();
     }
+    public void setPrice(int newPrice){
+        this.price = newPrice;
+    }
 
     public void setOwner(Player owner) {
         this.owner = owner;

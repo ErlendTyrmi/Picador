@@ -11,8 +11,8 @@ import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
@@ -20,9 +20,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import javafx.fxml.FXMLLoader;
+
+import java.awt.*;
 
 public class ControlFreak {
     private AudioClip dice = new AudioClip(getClass().getResource("dice.wav").toExternalForm());
@@ -306,7 +309,7 @@ public class ControlFreak {
                             " for " + currentSquare.getPrice() + " M.");
                     setOwned(turnIndex, currentPlayer.getPosition());
                 } else if (game.youPaidRent()) {
-                    fieldMessages += textBook.youPaidRent + game.getCurrentSquareOwner()
+                    fieldMessages += textBook.youPaidRent + game.getCurrentSquareOwnerName()
                             + "\n" + currentSquare.getPrice() + " M";
                 } else {
                     System.out.println("Error: isMoneyPaid should be false");
