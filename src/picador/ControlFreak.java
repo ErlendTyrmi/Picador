@@ -3,14 +3,16 @@ package picador;
 import Machine.DanishText;
 import Machine.Game;
 import Machine.Player;
+import Machine.Square;
+import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
@@ -24,22 +26,30 @@ import javafx.fxml.FXMLLoader;
 
 public class ControlFreak {
     private AudioClip dice = new AudioClip(getClass().getResource("dice.wav").toExternalForm());
+    private AudioClip moneySound = new AudioClip(getClass().getResource("money.wav").toExternalForm());
+    private AudioClip fanfare = new AudioClip(getClass().getResource("fanfare.mp3").toExternalForm());
     private AudioClip dogSound = new AudioClip(getClass().getResource("bark.wav").toExternalForm());
     private AudioClip catSound = new AudioClip(getClass().getResource("meow.wav").toExternalForm());
     private AudioClip carSound = new AudioClip(getClass().getResource("car.wav").toExternalForm());
     private AudioClip boatSound = new AudioClip(getClass().getResource("boat.wav").toExternalForm());
-    private AudioClip moneySound = new AudioClip(getClass().getResource("money.wav").toExternalForm());
-    private PauseTransition waitForIt = new PauseTransition(Duration.millis(1050));
-    private int chosenField, numberOfPLayers, fortune, turnIndex;
+    private AudioClip[] tokenSounds;
+
+    private PauseTransition justASec = new PauseTransition(Duration.millis(666));
+    private PauseTransition justTwoSec = new PauseTransition(Duration.millis(1200));
+    private PauseTransition diceRollPauseTransition = new PauseTransition(Duration.millis(1050)); // Timed especially for dice
+    private FadeTransition fadeOut = new FadeTransition(Duration.millis(555));
+    private int chosenField, numberOfPLayers, fortune, turnIndex, diceShifterA;
     private Game game;
+    private DanishText textBook = new DanishText();
     private boolean won = false, yesButtonClicked = false, noButtonClicked = false,
             dogChosen = false, catChosen = false, carChosen = false, boatChosen = false;
     private Player currentPlayer;
     private Player[] players;
+    private Square currentSquare;
     @FXML
-    private ImageView diceViewA, dogToken, catToken, carToken, boatToken;
+    private ImageView diceViewA, dogToken, catToken, carToken, boatToken, messageDogToken, messageCatToken, messageCarToken, messageBoatToken;
     @FXML
-    private ImageView[] tokens;
+    private ImageView[] tokens, messageTokens;
     @FXML
     private Button okButton, yesButton, noButton;
     @FXML
@@ -48,7 +58,7 @@ public class ControlFreak {
     private CheckBox[] checkBoxes = {dogCheckBox, catCheckBox, carCheckBox, boatCheckBox};
     @FXML
     private StackPane zero, one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen,
-    fifteen, sixteen, seventeen, eighteen, nineteen, twenty, twentyone, twentytwo, twentythree;
+            fifteen, sixteen, seventeen, eighteen, nineteen, twenty, twentyone, twentytwo, twentythree;
     @FXML
     private StackPane[] squares = {zero, one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen,
             fifteen, sixteen, seventeen, eighteen, nineteen, twenty, twentyone, twentytwo, twentythree};
@@ -59,7 +69,7 @@ public class ControlFreak {
     @FXML
     private HBox buttonBox, rightTrueBox, characterChoiceBox, characterChoiceImageBox;
     @FXML
-    private VBox messageBox;
+    private VBox messageBox, tokensBox;
     @FXML
     private FlowPane card;
     @FXML
@@ -68,9 +78,9 @@ public class ControlFreak {
     private Text gameText;
 
 
-    /************************************************
-     * Controller handles GUI and controls the show
-     ***********************************************/
+    /******************************************************************
+     *Controller handles GUI and controls the show. It's my God-class.
+     ******************************************************************/
 
     public ControlFreak() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
@@ -85,177 +95,352 @@ public class ControlFreak {
     }
 
     private void settings() {
-        game = new Game();
-        showPlayerChoice(); // Long and complicated function below
-    }
-
-    private void playTurn() {
-        System.out.println("playGame method called.");
-        currentPlayer = players[turnIndex];
-            game.playTurn(currentPlayer);
-            turnIndex++;
-            if (turnIndex >= numberOfPLayers){
-                turnIndex = 0;
-            }
-            // TODO write method to move them MAke one that moves instantly first, then add steps
-    }
-
-    // Set Dice in UI:
-    public void rolldice(MouseEvent mouseEvent) {
-        // This seems to work!
-        System.out.println("dice clicked!");
-        playTurn();
-        int diceShifterA = game.getDiceA() * 100 - 100;
-        diceViewA.setViewport(new Rectangle2D(600, 0, 100, 170));
-        dice.play();
-        waitForIt.setOnFinished(e -> {
-            diceViewA.setViewport(new Rectangle2D(diceShifterA, 0, 100, 170));
-            movePiece(currentPlayer, currentPlayer.getPosition());
-            if (currentPlayer.hasPassedStart()){
-                showText(DanishText.squareDescriptions[currentPlayer.getPosition()]+ "\n\n" + currentPlayer.getName() + DanishText.passedStart );
-            } else {
-               showText(DanishText.squareDescriptions[currentPlayer.getPosition()]);
-            }
-            setMoney(currentPlayer.getName(), currentPlayer.getMoney());
-            currentPlayer.setPassedStart(false);
-            if (currentPlayer.isBroke()){
-                showText("Game ended. Go home.");
-                // Go to other function here disable dice!
-                // tunnel back to settings.
-            }
-        });
-        waitForIt.play();
-    }
 
 
-    // Move piece on board
-    public void movePiece(Player player, int squareNumber) {
-        // remove game piece from previous
-       getSquare(squareNumber).getChildren().add(tokens[turnIndex]);
-    }
+        // Remove FXML-generated tokens at field zero.
+        zero.getChildren().removeAll(dogToken, catToken, carToken, boatToken);
+        // Remove the two unused button boxes
+        card.getChildren().removeAll(rightTrueBox, tokensBox);
 
-    // Show text (cards, buy-button and other text in centre of board)
-
-    public void showText(String text) {
-        yesButtonClicked = false;
-        gameText.setText(text);
-        rightTrueBox.setVisible(true);
-        card.setVisible(true);
-
+        // Just one more step down, all the action begins!
+        showPlayerChoice();
     }
 
     public void showPlayerChoice() {
-        gameText.setText(DanishText.choosePiece);
-        characterChoiceImageBox.setVisible(true);
-        dogToken.setOnMouseClicked(e->{dogCheckBox.setSelected(true);dogSound.play();});
-        catToken.setOnMouseClicked(e->{catCheckBox.setSelected(true);catSound.play();});
-        carToken.setOnMouseClicked(e->{carCheckBox.setSelected(true);carSound.play();});
-        boatToken.setOnMouseClicked(e->{boatCheckBox.setSelected(true);boatSound.play();});
+
+        dogToken.setOnMouseClicked(e -> {
+            dogCheckBox.setSelected(true);
+            dogSound.play();
+        });
+        catToken.setOnMouseClicked(e -> {
+            catCheckBox.setSelected(true);
+            catSound.play();
+        });
+        carToken.setOnMouseClicked(e -> {
+            carCheckBox.setSelected(true);
+            carSound.play();
+        });
+        boatToken.setOnMouseClicked(e -> {
+            boatCheckBox.setSelected(true);
+            boatSound.play();
+        });
+        // Show the card!
         characterChoiceBox.setVisible(true);
         buttonBox.setVisible(true);
         okButton.setText("Start");
-        card.setVisible(true);
+        showText(textBook.choosePiece);
+
         // When Start clicked:
-        okButton.setOnAction(e->{
+        okButton.setOnAction(e -> {
             card.setVisible(false);
-            characterChoiceImageBox.setVisible(false);
-            characterChoiceBox.setVisible(false);
-            buttonBox.setVisible(false);
+            // Removing redundant boxes, also buttonBox. Clean up after yourself!
+            characterChoiceImageBox.getChildren().removeAll(messageDogToken, messageCatToken, messageCarToken, messageBoatToken);
+            card.getChildren().removeAll(characterChoiceImageBox, characterChoiceBox, buttonBox);
 
             numberOfPLayers = 0;
-            if (dogCheckBox.isSelected()){
-                zero.getChildren().add(dogToken);
+            if (dogCheckBox.isSelected()) {
+                //zero.getChildren().add(dogToken);
                 dogChosen = true;
                 numberOfPLayers++;
             }
-            if (catCheckBox.isSelected()){
-                zero.getChildren().add(catToken);
+            if (catCheckBox.isSelected()) {
+                //zero.getChildren().add(catToken);
                 catChosen = true;
                 numberOfPLayers++;
             }
-            if (carCheckBox.isSelected()){
-                zero.getChildren().add(carToken);
+            if (carCheckBox.isSelected()) {
+                //zero.getChildren().add(carToken);
                 carChosen = true;
                 numberOfPLayers++;
             }
-            if (boatCheckBox.isSelected()){
-                zero.getChildren().add(boatToken);
+            if (boatCheckBox.isSelected()) {
+                //zero.getChildren().add(boatToken);
                 boatChosen = true;
                 numberOfPLayers++;
             }
 
-            // In case none selected: Cat
-            if (numberOfPLayers == 0){
-                zero.getChildren().add(catToken);
+            // In case none selected:
+            if (numberOfPLayers == 0) {
                 catChosen = true;
-                numberOfPLayers++;
-                }
+                numberOfPLayers = 1;
+            }
 
             players = new Player[numberOfPLayers];
             tokens = new ImageView[numberOfPLayers];
+            messageTokens = new ImageView[numberOfPLayers];
+            tokenSounds = new AudioClip[numberOfPLayers];
 
-            int i = 0;
-            if (dogChosen){
-                players[i] = new Player("Hund");
-                tokens[i] = dogToken;
-                i++;
-            }
-            if (catChosen){
-                players[i] = new Player("Kat");
-                tokens[i] = catToken;
-                i++;
-            }
-            if (carChosen){
-                players[i] = new Player("Bil");
-                tokens[i] = carToken;
-                i++;
-            }
-            if (boatChosen){
-                players[i] = new Player("Båd");
-                tokens[i] = boatToken;
-            }
-
-            if (players.length == 4){
+            // Setting players' fortune at start!
+            if (players.length == 4) {
                 fortune = 16;
-            } else if (players.length == 3){
+            } else if (players.length == 3) {
                 fortune = 18;
             } else {
-                fortune = 20;
-            }
-            for (Player x : players){
-                setMoney(x.getName(), fortune);
+                fortune = 6; // TODO: 20
             }
 
-            turnIndex = (int)(Math.random()*numberOfPLayers);
+            // Make three arrays with the same index: players, tokens and messageTokens(copy of tokens)
+            // I'm making messagetokens so you can show token several places @ the same time!
+            int i = 0;
+            if (dogChosen) {
+                players[i] = new Player("Hund", fortune);
+                tokens[i] = dogToken;
+                messageTokens[i] = messageDogToken;
+                tokenSounds[i] = dogSound;
+                i++;
+            }
+            if (catChosen) {
+                players[i] = new Player("Kat", fortune);
+                tokens[i] = catToken;
+                messageTokens[i] = messageCatToken;
+                tokenSounds[i] = catSound;
+                i++;
+            }
+            if (carChosen) {
+                players[i] = new Player("Bil", fortune);
+                tokens[i] = carToken;
+                messageTokens[i] = messageCarToken;
+                tokenSounds[i] = carSound;
+                i++;
+            }
+            if (boatChosen) {
+                players[i] = new Player("Båd", fortune);
+                tokens[i] = boatToken;
+                messageTokens[i] = messageBoatToken;
+                tokenSounds[i] = boatSound;
+            }
+
+            // Making players in Machine.Game
+            game = new Game(players);
+
+            for (Player x : players) {
+                showMoneyUI(x, fortune);
+            }
+
+            turnIndex = (int) (Math.random() * numberOfPLayers);
             System.out.println("Starting with player " + turnIndex + ".");
+
             diceBox.setVisible(true);
             System.out.println("All is set up. Dice now visible: Let the games begin!");
+
+            // Add players to board
+            for (ImageView t : tokens) {
+                zero.getChildren().add(t);
+            }
+
+            // Showing a message for the first player, and setting up the OK Button to roll the die.
+            justASec.setOnFinished(eStart -> {
+                tokensBox.getChildren().add(messageTokens[turnIndex]);
+                card.getChildren().addAll(tokensBox, buttonBox);
+                okButton.setText(textBook.rollDice);
+                showText(players[turnIndex].getName() + textBook.firstTurn);
+                okButton.setOnAction(eFirstPLayerStart -> {
+                    tokensBox.getChildren().remove(messageTokens[turnIndex]);
+                    card.getChildren().removeAll(tokensBox, buttonBox); // Sauber machen!
+                    card.setVisible(false);
+
+                    tokenSounds[turnIndex].play();
+
+                    rollDice();
+                });
+            });
+            justASec.play();
         });
+    }
+
+    // Set Dice in UI:
+    public void handleDiceClick(MouseEvent mouseEvent) {
+        // Go straight to rollDice, to avoid mouseEvent trouble
+        rollDice();
+    }
+
+    private void rollDice() {
+        // All actions instigated by player dice roll.
+        currentPlayer = players[turnIndex];
+        System.out.println("dice clicked by " + currentPlayer.getName());
+
+        // Tell game to do it's magic and sout it.
+        game.playTurn(currentPlayer);
+        System.out.println("playTurn method in game called.");
+        System.out.println("Turn index: " + turnIndex);
+        System.out.println("Current player: " + currentPlayer.getName());
+        System.out.println("Player at turn index= " + players[turnIndex].getName());
+
+        // Set currentField variable
+        currentSquare = game.getCurrentSquare();
+
+        // Update UI Dice
+        int diceShifterA = game.getDiceA() * 100 - 100;
+        diceViewA.setViewport(new Rectangle2D(600, 0, 100, 170));
+        dice.play(); // sound
+        diceRollPauseTransition.setOnFinished(e -> {
+            // Show dice
+            diceViewA.setViewport(new Rectangle2D(diceShifterA, 0, 100, 170));
+            movePiece(turnIndex, currentPlayer.getPosition());
+
+            // Helper function for handling message about what happens after dice roll.
+            handleCurrentFieldMessages();
+        });
+        diceRollPauseTransition.play();
+    }
+
+    private void handleCurrentFieldMessages() {
+
+        // Handle "current field" messages. (Adding "passed start" and other rules if relevant)
+        tokensBox.getChildren().add(messageTokens[turnIndex]);
+        okButton.setText(textBook.ok);
+        card.getChildren().addAll(tokensBox, buttonBox);
+
+        // When button is clicked: move on down the page (after running the if-else below).
+        okButton.setOnAction(e -> handleFieldMessagesAccepted());
+
+        // Big if-else determining what messages to show for current field
+        String fieldMessages = textBook.squareDescriptions[currentPlayer.getPosition()];
+        if (currentPlayer.hasPassedStart()) {
+            fieldMessages += textBook.passedStart;
+        }
+        if (game.getCurrentSquareType().equals("street")) {
+            if (game.isMoneyPaid()) {
+                if (game.youBoughtStreet()) {
+                    fieldMessages += (textBook.youBoughtStreet + currentSquare.getTitle() +
+                            " for " + currentSquare.getPrice() + " M.");
+                } else if (game.youPaidRent()) {
+                    fieldMessages += textBook.youPaidRent + game.getCurrentSquareOwner()
+                            + "\n" + currentSquare.getPrice() + " M";
+                } else {
+                    System.out.println("Error: isMoneyPaid should be false");
+                }
+            } else if (game.youOwnStreet()){
+                fieldMessages += textBook.youOwnStreet;
+            }
+        } else if (game.getCurrentSquareType().equals("chance")){
+            // her begynner festen!
+        }
+
+        currentPlayer.setPassedStart(false); // Remember to reset.
+
+        showText(fieldMessages);
+        // update money for all players
+        justASec.setOnFinished(eHoldForCash -> {
+            for (Player x : players) {
+                showMoneyUI(x, x.getMoney());
+            }
+            if (game.isMoneyPaid()) {
+                moneySound.play();
+            }
+        });
+        justASec.play();
+
+        // Check if player is broke, then game ends
+        if (currentPlayer.isBroke()){
+            game.findWinnerIndex(players);
+            gameEnd(turnIndex);
+        }
+
+        if (currentPlayer.isInPrison()) {
+            System.out.println(currentPlayer.getName() + " is moved to prison;");
+            currentPlayer.setPosition(6);
+            six.getChildren().add(tokens[turnIndex]);
+        }
 
     }
 
-    // Set account info for players (monopoly money)
+    private void handleFieldMessagesAccepted() {
+        // This method increments turn index and sets up card for new player.
+        tokensBox.getChildren().remove(messageTokens[turnIndex]);
+        card.getChildren().removeAll(tokensBox, buttonBox);
+        card.setVisible(false);
+        turnIndex++;
+        if (turnIndex >= numberOfPLayers) {
+            turnIndex = 0;
+        }
+        System.out.println("\nTurn index incremented to " + turnIndex + ". it's " +
+                players[turnIndex].getName() + "'s turn. token is " + tokens[turnIndex]);
+        yourTurnMessage(turnIndex);
+    }
 
-    // First time players money is updated, their money field becomes visible.
-    public void setMoney(String playerName, int fortune) {
-        if (playerName.equals("Hund")) {
-            dogMoney.setText(Integer.toString(fortune));
-            dogMoneyBox.setVisible(true);
-        } else if (playerName.equals("Kat")) {
-            catMoney.setText(Integer.toString(fortune));
-            catMoneyBox.setVisible(true);
-        } else if (playerName.equals("Bil")) {
-            carMoney.setText(Integer.toString(fortune));
-            carMoneyBox.setVisible(true);
-        } else if (playerName.equals("Båd")) {
-            boatMoney.setText(Integer.toString(fortune));
-            boatMoneyBox.setVisible(true);
+    private void yourTurnMessage(int turnIndex) {
+        // turnIndex @ end of rollDice method is already incremented when the button is pushed.
+        tokensBox.getChildren().add(messageTokens[turnIndex]);
+        okButton.setText(textBook.rollDice);
+        card.getChildren().addAll(tokensBox, buttonBox);
+        okButton.setOnAction(ePrepareYourself -> {
+            tokensBox.getChildren().remove(messageTokens[turnIndex]);
+            card.getChildren().removeAll(tokensBox, buttonBox);
+            card.setVisible(false);
+            rollDice();
+        });
+        tokenSounds[turnIndex].play();
+        if (players[turnIndex].isInPrison()){
+            okButton.setOnAction(e-> {
+                tokensBox.getChildren().remove(messageTokens[turnIndex]);
+                card.getChildren().removeAll(tokensBox, buttonBox);
+                card.setVisible(false);
+                handleFieldMessagesAccepted();
+                players[turnIndex].setInPrison(false);
+            });
+
+            showText(players[turnIndex].getName() + textBook.stillInPrison);
         } else {
-            System.out.println("Error. Player unknown.");
+            showText(players[turnIndex].getName() + textBook.yourTurn);
         }
     }
 
-    // Set "owned by"-token
+    private void gameEnd(int turnIndex){
+        fanfare.play();
+
+        // Wait a second, then show winner
+        justTwoSec.setOnFinished(e-> {
+            tokensBox.getChildren().remove(tokens[turnIndex]);
+            tokensBox.getChildren().add(tokens[game.getWinnerIndex()]);
+            okButton.setText(textBook.exit);
+            okButton.setOnAction(eEnd -> {
+                System.exit(0);
+            });
+            showText(textBook.congratulations + players[game.getWinnerIndex()].getName() + textBook.youWon +
+                players[game.getWinnerIndex()].getMoney() + " M.");
+        });
+        justTwoSec.play();
+    }
+
+
+    // Move piece on board
+    private void movePiece(int turnIndex, int squareNumber) {
+        // TODO: move stepwise
+        // remove game piece from previous
+        getSquare(squareNumber).getChildren().add(tokens[turnIndex]);
+    }
+
+    // Show text (cards, buy-button and other text in centre of board)
+
+    private void showText(String text) {
+        // TODO fix buttons OK
+        yesButtonClicked = false;
+        gameText.setText(text);
+        card.setVisible(true);
+    }
+
+    // Set account info for players (monopoly money) First time players money is updated,
+    // their money field becomes visible. Fortune is the initial amount.
+    public void showMoneyUI(Player x, int fortune) {
+        if (x.getName().equals("Hund")) {
+            dogMoney.setText(Integer.toString(fortune));
+            dogMoneyBox.setVisible(true);
+        } else if (x.getName().equals("Kat")) {
+            catMoney.setText(Integer.toString(fortune));
+            catMoneyBox.setVisible(true);
+        } else if (x.getName().equals("Bil")) {
+            carMoney.setText(Integer.toString(fortune));
+            carMoneyBox.setVisible(true);
+        } else if (x.getName().equals("Båd")) {
+            boatMoney.setText(Integer.toString(fortune));
+            boatMoneyBox.setVisible(true);
+        } else {
+            System.out.println("Error. Cannot update money account for unknown: " + x.getName());
+        }
+    }
+
+    // Set "owned by"-token. use new imageview each time!
     public void setOwned(Player player, int field) {
         switch (field) {
             // Field needs a name that corresponds with fxml. Start = zero.
@@ -392,9 +577,9 @@ public class ControlFreak {
     }
 
     // Translating square index to respective stackpanes
-    private StackPane getSquare(int x){
+    private StackPane getSquare(int x) {
         StackPane name;
-        switch(x){
+        switch (x) {
             case 1:
                 name = one;
                 break;
@@ -474,23 +659,25 @@ public class ControlFreak {
     // Getting Button clicks
 
     public void mainButtonClick() {
-        card.setVisible(false);
-        card.getChildren().removeAll();
+        //card.setVisible(false);
+        //card.getChildren().removeAll();
         yesButtonClicked = true;
     }
 
     public void yesButtonClick(ActionEvent actionEvent) {
-        card.setVisible(false);
-        card.getChildren().removeAll();
+        //card.setVisible(false);
+        //card.getChildren().removeAll();
         yesButtonClicked = true;
     }
 
     public void noButtonClick(ActionEvent actionEvent) {
-        card.setVisible(false);
-        card.getChildren().removeAll();
+        //card.setVisible(false);
+        //card.getChildren().removeAll();
         noButtonClicked = true;
     }
 
+
+    // If you click on a token at any time, they make a sound. May be removed.
     public void playDogSound(MouseEvent mouseEvent) {
         dogSound.play();
     }
