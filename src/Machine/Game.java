@@ -84,7 +84,7 @@ public class Game {
         // Cycles through players and returns winner
         System.out.println("findWinnerIndex has been called");
         int highestSum = 0;
-        int winnerIndex = 0;
+        winnerIndex = 0;
         for (int i = 0; i < players.length;i++){
             if (players[i].getMoney() > highestSum){
                 highestSum = players[i].getMoney();

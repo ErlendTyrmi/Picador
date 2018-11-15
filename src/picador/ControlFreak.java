@@ -107,19 +107,19 @@ public class ControlFreak {
 
     public void showPlayerChoice() {
 
-        dogToken.setOnMouseClicked(e -> {
+        messageDogToken.setOnMouseClicked(e -> {
             dogCheckBox.setSelected(true);
             dogSound.play();
         });
-        catToken.setOnMouseClicked(e -> {
+        messageCatToken.setOnMouseClicked(e -> {
             catCheckBox.setSelected(true);
             catSound.play();
         });
-        carToken.setOnMouseClicked(e -> {
+        messageCarToken.setOnMouseClicked(e -> {
             carCheckBox.setSelected(true);
             carSound.play();
         });
-        boatToken.setOnMouseClicked(e -> {
+        messageBoatToken.setOnMouseClicked(e -> {
             boatCheckBox.setSelected(true);
             boatSound.play();
         });
@@ -290,7 +290,7 @@ public class ControlFreak {
         okButton.setText(textBook.ok);
         card.getChildren().addAll(tokensBox, buttonBox);
 
-        // When button is clicked: move on down the page (after running the if-else below).
+        // When button is clicked: show welcome to next player (after running the if-else below).
         okButton.setOnAction(e -> handleFieldMessagesAccepted());
 
         // Big if-else determining what messages to show for current field
@@ -303,6 +303,7 @@ public class ControlFreak {
                 if (game.youBoughtStreet()) {
                     fieldMessages += (textBook.youBoughtStreet + currentSquare.getTitle() +
                             " for " + currentSquare.getPrice() + " M.");
+                    setOwned(currentPlayer, currentPlayer.getPosition());
                 } else if (game.youPaidRent()) {
                     fieldMessages += textBook.youPaidRent + game.getCurrentSquareOwner()
                             + "\n" + currentSquare.getPrice() + " M";
@@ -332,7 +333,6 @@ public class ControlFreak {
 
         // Check if player is broke, then game ends
         if (currentPlayer.isBroke()){
-            game.findWinnerIndex(players);
             okButton.setDisable(true);
             gameEnd(turnIndex);
         }
@@ -391,15 +391,20 @@ public class ControlFreak {
 
         // Wait a second, then show winner
         justTwoSec.setOnFinished(e-> {
-            tokensBox.getChildren().remove(tokens[turnIndex]);
-            tokensBox.getChildren().add(tokens[game.getWinnerIndex()]);
+            // Tell who's won!
+            game.findWinnerIndex(players);
+            int winner = game.getWinnerIndex();
+
+            tokensBox.getChildren().removeAll(messageTokens[turnIndex]);
+            System.out.println("turnIndex: " + turnIndex);
+            tokensBox.getChildren().add(messageTokens[game.getWinnerIndex()]);
             okButton.setText(textBook.exit);
             okButton.setDisable(false);
             okButton.setOnAction(eEnd -> {
                 System.exit(0);
             });
-            showText(textBook.congratulations + players[game.getWinnerIndex()].getName() + textBook.youWon +
-                players[game.getWinnerIndex()].getMoney() + " M.");
+            showText(textBook.congratulations + players[winner].getName() + textBook.youWon +
+                players[winner].getMoney() + " M.");
         });
         justTwoSec.play();
     }
@@ -442,10 +447,20 @@ public class ControlFreak {
     }
 
     // Set "owned by"-token. use new imageview each time!
-    public void setOwned(Player player, int field) {
-        switch (field) {
-            // Field needs a name that corresponds with fxml. Start = zero.
-            // Place players "owned"-image on field
+    public void setOwned(Player currentPlayer, int squareNumber) {
+        switch (currentPlayer.getName()){
+            case "hund":
+                getSquare(squareNumber).getChildren().add(new ImageView("images/monopoly-dog-owned.png"));
+                break;
+            case "kat":
+                getSquare(squareNumber).getChildren().add(new ImageView("images/monopoly-cat-owned.png"));
+                break;
+            case "bil":
+                getSquare(squareNumber).getChildren().add(new ImageView("images/monopoly-car-owned.png"));
+                break;
+            case "båd":
+                getSquare(squareNumber).getChildren().add(new ImageView("images/monopoly-boat-owned.png"));
+                break;
         }
 
     }
@@ -677,22 +692,5 @@ public class ControlFreak {
         noButtonClicked = true;
     }
 
-
-    // If you click on a token at any time, they make a sound. May be removed.
-    public void playDogSound(MouseEvent mouseEvent) {
-        dogSound.play();
-    }
-
-    public void playCatSound(MouseEvent mouseEvent) {
-        catSound.play();
-    }
-
-    public void playCarSound(MouseEvent mouseEvent) {
-        carSound.play();
-    }
-
-    public void playBoatSound(MouseEvent mouseEvent) {
-        boatSound.play();
-    }
 }
 
