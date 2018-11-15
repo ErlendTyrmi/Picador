@@ -12,6 +12,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
@@ -303,7 +304,7 @@ public class ControlFreak {
                 if (game.youBoughtStreet()) {
                     fieldMessages += (textBook.youBoughtStreet + currentSquare.getTitle() +
                             " for " + currentSquare.getPrice() + " M.");
-                    setOwned(currentPlayer, currentPlayer.getPosition());
+                    setOwned(turnIndex, currentPlayer.getPosition());
                 } else if (game.youPaidRent()) {
                     fieldMessages += textBook.youPaidRent + game.getCurrentSquareOwner()
                             + "\n" + currentSquare.getPrice() + " M";
@@ -447,18 +448,21 @@ public class ControlFreak {
     }
 
     // Set "owned by"-token. use new imageview each time!
-    public void setOwned(Player currentPlayer, int squareNumber) {
-        switch (currentPlayer.getName()){
-            case "hund":
+    public void setOwned(int playerIndex, int squareNumber) {
+        System.out.println("Set owned:\nPlayer name: " + players[playerIndex].getName());
+        System.out.println("Square object: " + getSquare(squareNumber));
+
+        switch (players[playerIndex].getName()){
+            case "Hund":
                 getSquare(squareNumber).getChildren().add(new ImageView("images/monopoly-dog-owned.png"));
                 break;
-            case "kat":
+            case "Kat":
                 getSquare(squareNumber).getChildren().add(new ImageView("images/monopoly-cat-owned.png"));
                 break;
-            case "bil":
+            case "Bil":
                 getSquare(squareNumber).getChildren().add(new ImageView("images/monopoly-car-owned.png"));
                 break;
-            case "båd":
+            case "Båd":
                 getSquare(squareNumber).getChildren().add(new ImageView("images/monopoly-boat-owned.png"));
                 break;
         }
