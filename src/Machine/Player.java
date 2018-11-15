@@ -5,9 +5,9 @@ public class Player {
     private String name;
     private boolean inPrison = false, getOutOfPrison = false, passedStart = false;
 
-    public Player(String name) {
+    public Player(String name, int money) {
         this.name = name;
-        money = 20;
+        this.money = money;
         position = 0;
 
     }
@@ -20,7 +20,7 @@ public class Player {
         // When making movements: Use getNextSquare
         position += diceRoll;
         // Check for out of bounds and passedStart.
-        if (position == 24){
+        if (position == 24) {
             position = 0;
         } else if (position > 23) {
             position -= 24;
@@ -29,9 +29,9 @@ public class Player {
 
     }
 
-    private int getNextSquare(){
+    private int getNextSquare() {
         int nextPosition = position + 1;
-        if (nextPosition == 24){
+        if (nextPosition == 24) {
             nextPosition = 0;
         }
         return nextPosition;
@@ -41,12 +41,13 @@ public class Player {
         return money;
     }
 
-    public void setMoney(int pay){
+    public void setMoney(int pay) {
         this.money -= pay;
     }
 
     public boolean isBroke() {
         if (money <= 0) {
+            money = 0;
             return true;
         } else {
             return false;
@@ -61,9 +62,13 @@ public class Player {
         return inPrison;
     }
 
-    public void setInPrison(boolean inPrison) { this.inPrison = inPrison; }
+    public void setInPrison(boolean inPrison) {
+        this.inPrison = inPrison;
+    }
 
-    public void setPosition(){ this.position = position; }
+    public void setPosition(int position) {
+        this.position = position;
+    }
 
     public boolean hasGetOutOfPrison() {
         return getOutOfPrison;

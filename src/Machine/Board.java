@@ -5,7 +5,7 @@ public class Board {
     // Types:
     // start, chance, prison, parking, toPrison,
     // brown, lightBlue, purple, orange, red, yellow, green, blue
-    private Player bank = new Player("Banken");
+    private Player bank = new Player("Banken", 0);
     DanishText text = new DanishText();
 
     Square[] squares = {
@@ -37,6 +37,5 @@ public class Board {
 
     public Square getSquares(int id) {
         return squares[id];
-
     }
 }

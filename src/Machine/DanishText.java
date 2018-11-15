@@ -12,9 +12,18 @@ public class DanishText {
     public final static String car = "Bil";
     public final static String boat = "Båd";
     public final static String player = "Spiller";
+    public final static String firstTurn = " starter. Det er afgjort på baggrund af aktiekursen og vejrforhold. Klik her eller på terningen, så ruller vi i gang!";
     public final static String yourTurn = ", så er det din tur. Klik på terningerne for at spille!";
+    public static final String ok = "OK";
     public final static String rollDice = "Slå terningerne!";
+    public final static String youBoughtStreet = "\nDu har lige købt ";
+    public final static String youPaidRent = "\nDu betaler leje til ";
+    public final static String youOwnStreet = "\nDu ejer allerede denne gade. Nyd det!";
     public final static String passedStart = ", du har passeret start og får 1M!";
+    public final static String stillInPrison = "Du er havnet i fængsel og må stå over denne omgang! Bare rolig, du har en dyr og god advokat.";
+    public final static String exit = "Afslut programmet";
+    public final static String congratulations = "Tillykke, ";
+    public final static String youWon = " du har vundet! Nu kan du trække dig tilbage og nyde dine ";
 
     public final static  String[] squareDescriptions = {
             "Start\n\nDu får 1M når du passerer Start! Det lønner sig at stå tidlig op.",
@@ -46,27 +55,27 @@ public class DanishText {
     public final static String[] squareTitles = {
             "Start",
             "Burgerbaren",
-            "Pizzeria",
+            "Pizzeriaet",
             "Chance",
-            "Slikbutik",
-            "Isbar",
+            "Slikbutikken",
+            "Isbaren",
             "Fængsel",
-            "Museum",
-            "Bibliotek",
+            "Museet",
+            "Biblioteket",
             "Chance",
-            "Skatepark",
-            "Svømmehal",
+            "Skateparken",
+            "Svømmehallen",
             "Parkering",
-            "Spillehal.",
-            "Biograf!",
+            "Spillehallen",
+            "Biografen",
             "Chance",
-            "Legetøjsbutik",
-            "Dyrehandel",
+            "Legetøjsbutikken",
+            "Dyrehandelen",
             "Gå i fængsel",
             "Bowling",
-            "Zoo.",
+            "Zooet",
             "Chance",
-            "Vandland",
+            "Vandlandet",
             "Promenaden."
     };
 
