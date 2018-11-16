@@ -11,7 +11,6 @@ import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -20,12 +19,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import javafx.fxml.FXMLLoader;
 
-import java.awt.*;
 
 public class ControlFreak {
     private AudioClip dice = new AudioClip(getClass().getResource("dice.wav").toExternalForm());
@@ -36,7 +33,6 @@ public class ControlFreak {
     private AudioClip carSound = new AudioClip(getClass().getResource("car.wav").toExternalForm());
     private AudioClip boatSound = new AudioClip(getClass().getResource("boat.wav").toExternalForm());
     private AudioClip[] tokenSounds;
-
     private PauseTransition justASec = new PauseTransition(Duration.millis(666));
     private PauseTransition justTwoSec = new PauseTransition(Duration.millis(2000));
     private PauseTransition diceRollPauseTransition = new PauseTransition(Duration.millis(1050)); // Timed especially for dice
@@ -85,6 +81,7 @@ public class ControlFreak {
      *Controller handles GUI and controls the show. It's my God-class.
      ******************************************************************/
 
+    // TODO: selected chance cards and moevement. button OK when in prison
     public ControlFreak() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "custom_control.fxml"));
@@ -98,14 +95,11 @@ public class ControlFreak {
     }
 
     private void settings() {
-
-
         // Remove FXML-generated tokens at field zero.
         zero.getChildren().removeAll(dogToken, catToken, carToken, boatToken);
         // Remove the two unused button boxes
         card.getChildren().removeAll(rightTrueBox, tokensBox);
 
-        // Just one more step down, all the action begins!
         showPlayerChoice();
     }
 
@@ -127,6 +121,7 @@ public class ControlFreak {
             boatCheckBox.setSelected(true);
             boatSound.play();
         });
+
         // Show the card!
         characterChoiceBox.setVisible(true);
         buttonBox.setVisible(true);
@@ -179,7 +174,7 @@ public class ControlFreak {
             } else if (players.length == 3) {
                 fortune = 18;
             } else {
-                fortune = 6; // TODO: 20
+                fortune = 20; //
             }
 
             // Make three arrays with the same index: players, tokens and messageTokens(copy of tokens)
@@ -215,7 +210,6 @@ public class ControlFreak {
 
             // Making players in Machine.Game
             game = new Game(players);
-
             for (Player x : players) {
                 showMoneyUI(x, fortune);
             }
@@ -308,22 +302,27 @@ public class ControlFreak {
                     fieldMessages += (textBook.youBoughtStreet + currentSquare.getTitle() +
                             " for " + currentSquare.getPrice() + " M.");
                     setOwned(turnIndex, currentPlayer.getPosition());
+
                 } else if (game.youPaidRent()) {
                     fieldMessages += textBook.youPaidRent + game.getCurrentSquareOwnerName()
                             + "\n" + currentSquare.getPrice() + " M";
+
                 } else {
                     System.out.println("Error: isMoneyPaid should be false");
+
                 }
-            } else if (game.youOwnStreet()){
+            } else if (game.youOwnStreet()) {
                 fieldMessages += textBook.youOwnStreet;
+
             }
-        } else if (game.getCurrentSquareType().equals("chance")){
+        } else if (game.getCurrentSquareType().equals("chance")) {
             // her begynner festen!
         }
 
         currentPlayer.setPassedStart(false); // Remember to reset.
 
         showText(fieldMessages);
+
         // update money for all players
         justASec.setOnFinished(eHoldForCash -> {
             for (Player x : players) {
@@ -336,7 +335,7 @@ public class ControlFreak {
         justASec.play();
 
         // Check if player is broke, then game ends
-        if (currentPlayer.isBroke()){
+        if (currentPlayer.isBroke()) {
             okButton.setDisable(true);
             gameEnd(turnIndex);
         }
@@ -358,9 +357,11 @@ public class ControlFreak {
         if (turnIndex >= numberOfPLayers) {
             turnIndex = 0;
         }
+
+        yourTurnMessage(turnIndex);
+
         System.out.println("\nTurn index incremented to " + turnIndex + ". it's " +
                 players[turnIndex].getName() + "'s turn. token is " + tokens[turnIndex]);
-        yourTurnMessage(turnIndex);
     }
 
     private void yourTurnMessage(int turnIndex) {
@@ -374,27 +375,30 @@ public class ControlFreak {
             card.setVisible(false);
             rollDice();
         });
+
         tokenSounds[turnIndex].play();
-        if (players[turnIndex].isInPrison()){
-            okButton.setOnAction(e-> {
+        okButton.setText(textBook.ok);
+        if (players[turnIndex].isInPrison()) {
+            okButton.setOnAction(e -> {
                 tokensBox.getChildren().remove(messageTokens[turnIndex]);
                 card.getChildren().removeAll(tokensBox, buttonBox);
                 card.setVisible(false);
                 handleFieldMessagesAccepted();
                 players[turnIndex].setInPrison(false);
             });
-
             showText(players[turnIndex].getName() + textBook.stillInPrison);
+
         } else {
             showText(players[turnIndex].getName() + textBook.yourTurn);
+
         }
     }
 
-    private void gameEnd(int turnIndex){
+    private void gameEnd(int turnIndex) {
         fanfare.play();
 
         // Wait a second, then show winner
-        justTwoSec.setOnFinished(e-> {
+        justTwoSec.setOnFinished(e -> {
             // Tell who's won!
             game.findWinnerIndex(players);
             int winner = game.getWinnerIndex();
@@ -408,8 +412,9 @@ public class ControlFreak {
                 System.exit(0);
             });
             showText(textBook.congratulations + players[winner].getName() + textBook.youWon +
-                players[winner].getMoney() + " M.");
+                    players[winner].getMoney() + " M.");
         });
+
         justTwoSec.play();
     }
 
@@ -455,7 +460,7 @@ public class ControlFreak {
         System.out.println("Set owned:\nPlayer name: " + players[playerIndex].getName());
         System.out.println("Square object: " + getSquare(squareNumber));
 
-        switch (players[playerIndex].getName()){
+        switch (players[playerIndex].getName()) {
             case "Hund":
                 getSquare(squareNumber).getChildren().add(new ImageView("images/monopoly-dog-owned.png"));
                 break;

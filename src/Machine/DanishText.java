@@ -16,11 +16,11 @@ public class DanishText {
     public final static String yourTurn = ", så er det din tur. Tryk på knappen for at spille!";
     public static final String ok = "OK";
     public final static String rollDice = "Slå terningerne!";
-    public final static String youBoughtStreet = "\nDu har lige købt ";
+    public final static String youBoughtStreet = "\nDu har købt ";
     public final static String youPaidRent = "\nDu betaler leje til ";
     public final static String youOwnStreet = "\nDu ejer allerede denne gade. Nyd det!";
     public final static String passedStart = ", du har passeret start og får 1M!";
-    public final static String stillInPrison = "Du er havnet i fængsel og må stå over denne omgang! Bare rolig, du har en dyr og god advokat.";
+    public final static String stillInPrison = ", du er havnet i fængsel og må stå over denne omgang! Bare rolig, du har en dyr og god advokat.";
     public final static String exit = "Afslut programmet";
     public final static String congratulations = "Tillykke, ";
     public final static String youWon = " du har vundet! Nu kan du trække dig tilbage og nyde dine ";
