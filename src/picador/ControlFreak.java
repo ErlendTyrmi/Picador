@@ -123,8 +123,6 @@ public class ControlFreak {
         });
 
         // Show the card!
-        characterChoiceBox.setVisible(true);
-        buttonBox.setVisible(true);
         okButton.setText("Start");
         showText(textBook.choosePiece);
 
@@ -218,7 +216,6 @@ public class ControlFreak {
             System.out.println("Starting with player " + turnIndex + ".");
 
             diceBox.setVisible(true);
-            System.out.println("All is set up. Dice now visible: Let the games begin!");
 
             // Add players to board
             for (ImageView t : tokens) {
@@ -238,7 +235,7 @@ public class ControlFreak {
 
                     tokenSounds[turnIndex].play();
 
-                    rollDice();
+                    takeTurn();
                 });
             });
             justASec.play();
@@ -246,24 +243,19 @@ public class ControlFreak {
     }
 
     // Set Dice in UI:
-    public void handleDiceClick(MouseEvent mouseEvent) {
-        // Go straight to rollDice, to avoid mouseEvent trouble
-        rollDice();
+    public void diceRoll(MouseEvent mouseEvent) {
+        // Go straight to takeTurn, to avoid mouseEvent trouble
+        takeTurn();
     }
 
-    private void rollDice() {
+    private void takeTurn() {
         // All actions instigated by player dice roll.
         currentPlayer = players[turnIndex];
-        System.out.println("dice clicked by " + currentPlayer.getName());
 
-        // Tell game to do it's magic and sout it.
+        // Tell game to do it's magic.
         game.playTurn(currentPlayer);
-        System.out.println("playTurn method in game called.");
-        System.out.println("Turn index: " + turnIndex);
-        System.out.println("Current player: " + currentPlayer.getName());
-        System.out.println("Player at turn index= " + players[turnIndex].getName());
 
-        // Set currentField variable
+        // Set currentSquare variable
         currentSquare = game.getCurrentSquare();
 
         // Update UI Dice
@@ -271,19 +263,21 @@ public class ControlFreak {
         diceViewA.setViewport(new Rectangle2D(600, 0, 100, 170));
         dice.play(); // sound
         diceRollPauseTransition.setOnFinished(e -> {
+
             // Show dice
             diceViewA.setViewport(new Rectangle2D(diceShifterA, 0, 100, 170));
             movePiece(turnIndex, currentPlayer.getPosition());
 
             // Helper function for handling message about what happens after dice roll.
             handleCurrentSquare();
+
         });
         diceRollPauseTransition.play();
     }
 
     private void handleCurrentSquare() {
 
-        // Handle "current field" messages. (Adding "passed start" and other rules if relevant)
+        // Handle "current square" messages. (Adding "passed start" and other rules if relevant)
         tokensBox.getChildren().add(messageTokens[turnIndex]);
         okButton.setText(textBook.ok);
         card.getChildren().addAll(tokensBox, buttonBox);
@@ -293,11 +287,14 @@ public class ControlFreak {
 
         // Big if-else determining what messages to show for current field
         String fieldMessages = textBook.squareDescriptions[currentPlayer.getPosition()];
+
         if (currentPlayer.hasPassedStart()) {
             fieldMessages += textBook.passedStart;
         }
         if (game.getCurrentSquareType().equals("street")) {
+
             if (game.isMoneyPaid()) {
+
                 if (game.youBoughtStreet()) {
                     fieldMessages += (textBook.youBoughtStreet + currentSquare.getTitle() +
                             " for " + currentSquare.getPrice() + " M.");
@@ -307,16 +304,15 @@ public class ControlFreak {
                     fieldMessages += textBook.youPaidRent + game.getCurrentSquareOwnerName()
                             + "\n" + currentSquare.getPrice() + " M";
 
-                } else {
-                    System.out.println("Error: isMoneyPaid should be false");
-
                 }
+
             } else if (game.youOwnStreet()) {
                 fieldMessages += textBook.youOwnStreet;
 
             }
         } else if (game.getCurrentSquareType().equals("chance")) {
-            // her begynner festen!
+            handleChanceCard();
+
         }
 
         currentPlayer.setPassedStart(false); // Remember to reset.
@@ -334,14 +330,14 @@ public class ControlFreak {
         });
         justASec.play();
 
-        // Check if player is broke, then game ends
+        // Check if player is broke, which means game ends
         if (currentPlayer.isBroke()) {
             okButton.setDisable(true);
             gameEnd(turnIndex);
         }
 
+        // Put player in prison. Skipping next round handled in yourTurnMessage.
         if (currentPlayer.isInPrison()) {
-            System.out.println(currentPlayer.getName() + " is moved to prison;");
             currentPlayer.setPosition(6);
             six.getChildren().add(tokens[turnIndex]);
         }
@@ -354,31 +350,35 @@ public class ControlFreak {
         card.getChildren().removeAll(tokensBox, buttonBox);
         card.setVisible(false);
         turnIndex++;
+
         if (turnIndex >= numberOfPLayers) {
             turnIndex = 0;
         }
 
         yourTurnMessage(turnIndex);
 
-        System.out.println("\nTurn index incremented to " + turnIndex + ". it's " +
-                players[turnIndex].getName() + "'s turn. token is " + tokens[turnIndex]);
     }
 
+    // Next players turn is at the end of preious players turn.
     private void yourTurnMessage(int turnIndex) {
-        // turnIndex @ end of rollDice method is already incremented when the button is pushed.
+        // Please note that turn is incremented before this method runs.
         tokensBox.getChildren().add(messageTokens[turnIndex]);
         okButton.setText(textBook.rollDice);
         card.getChildren().addAll(tokensBox, buttonBox);
+
+        // Pressing OK button rolls the dice for next player. Loop ends here.
         okButton.setOnAction(ePrepareYourself -> {
             tokensBox.getChildren().remove(messageTokens[turnIndex]);
             card.getChildren().removeAll(tokensBox, buttonBox);
             card.setVisible(false);
-            rollDice();
+            takeTurn();
         });
 
+        // Play sound for next player.
         tokenSounds[turnIndex].play();
-        okButton.setText(textBook.ok);
+
         if (players[turnIndex].isInPrison()) {
+            okButton.setText(textBook.ok);
             okButton.setOnAction(e -> {
                 tokensBox.getChildren().remove(messageTokens[turnIndex]);
                 card.getChildren().removeAll(tokensBox, buttonBox);
@@ -403,14 +403,18 @@ public class ControlFreak {
             game.findWinnerIndex(players);
             int winner = game.getWinnerIndex();
 
+            // OK button was disabled before winner announced.
+            okButton.setDisable(false);
+
+
             tokensBox.getChildren().removeAll(messageTokens[turnIndex]);
-            System.out.println("turnIndex: " + turnIndex);
             tokensBox.getChildren().add(messageTokens[game.getWinnerIndex()]);
             okButton.setText(textBook.exit);
-            okButton.setDisable(false);
+
             okButton.setOnAction(eEnd -> {
                 System.exit(0);
             });
+
             showText(textBook.congratulations + players[winner].getName() + textBook.youWon +
                     players[winner].getMoney() + " M.");
         });
@@ -421,15 +425,22 @@ public class ControlFreak {
 
     // Move piece on board
     private void movePiece(int turnIndex, int squareNumber) {
-        // TODO: move stepwise
-        // remove game piece from previous
+
         getSquare(squareNumber).getChildren().add(tokens[turnIndex]);
+
+        // stepwise
+        /*
+        int stepX = currentPlayer.getPreviousPos();
+        while (stepX < squareNumber){
+            stepX++;
+                getSquare(stepX).getChildren().add(tokens[turnIndex]);
+        }
+        */
     }
 
     // Show text (cards, buy-button and other text in centre of board)
 
     private void showText(String text) {
-        // TODO fix buttons OK
         yesButtonClicked = false;
         gameText.setText(text);
         card.setVisible(true);
@@ -474,6 +485,12 @@ public class ControlFreak {
                 getSquare(squareNumber).getChildren().add(new ImageView("images/monopoly-boat-owned.png"));
                 break;
         }
+
+    }
+
+    private void handleChanceCard(){
+
+
 
     }
 
@@ -681,27 +698,6 @@ public class ControlFreak {
                 name = zero;
         }
         return name;
-    }
-
-
-    // Getting Button clicks
-
-    public void mainButtonClick() {
-        //card.setVisible(false);
-        //card.getChildren().removeAll();
-        yesButtonClicked = true;
-    }
-
-    public void yesButtonClick(ActionEvent actionEvent) {
-        //card.setVisible(false);
-        //card.getChildren().removeAll();
-        yesButtonClicked = true;
-    }
-
-    public void noButtonClick(ActionEvent actionEvent) {
-        //card.setVisible(false);
-        //card.getChildren().removeAll();
-        noButtonClicked = true;
     }
 
 }

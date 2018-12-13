@@ -12,6 +12,7 @@ public class DanishText {
     public final static String car = "Bil";
     public final static String boat = "Båd";
     public final static String player = "Spiller";
+    public final static String start = "Start!";
     public final static String firstTurn = " starter. Det er afgjort på baggrund af aktiekursen og vejrforhold. Klik på knappen, så ruller vi i gang!";
     public final static String yourTurn = ", så er det din tur. Tryk på knappen for at spille!";
     public static final String ok = "OK";

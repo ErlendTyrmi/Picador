@@ -258,7 +258,7 @@
                                           prefWidth="100.0">
                                         <children>
                                             <Button fx:id="okButton" alignment="CENTER" defaultButton="true"
-                                                    mnemonicParsing="false" onAction="#mainButtonClick" text="OK!"/>
+                                                    mnemonicParsing="false" text="OK!"/>
                                         </children>
                                         <FlowPane.margin>
                                             <Insets/>
@@ -268,7 +268,7 @@
                                           prefWidth="100.0">
                                         <children>
                                             <Button fx:id="noButton" alignment="CENTER" cancelButton="true"
-                                                    mnemonicParsing="false" onAction="#noButtonClick" text="Nej">
+                                                    mnemonicParsing="false" text="Nej">
                                                 <opaqueInsets>
                                                     <Insets/>
                                                 </opaqueInsets>
@@ -277,7 +277,7 @@
                                                 </HBox.margin>
                                             </Button>
                                             <Button fx:id="yesButton" alignment="CENTER" defaultButton="true"
-                                                    mnemonicParsing="false" onAction="#yesButtonClick" text="Ja"/>
+                                                    mnemonicParsing="false" text="Ja"/>
                                         </children>
                                     </HBox>
                                 </children>

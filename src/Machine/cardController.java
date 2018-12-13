@@ -3,13 +3,13 @@ package Machine;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class ChanceController {
+public class cardController {
 
     ChanceCard[] allCards;
     ArrayList<ChanceCard> drawPile = new ArrayList<ChanceCard>();
     ArrayList<ChanceCard> discardPile = new ArrayList<ChanceCard>();
 
-    ChanceController(){
+    cardController(){
         // Constructor makes the deck and shuffles it to a draw pile.
         allCards = new ChanceCard[11];
 
@@ -28,29 +28,37 @@ public class ChanceController {
         for (int i = 0; i < allCards.length; i++){
             drawPile.add(allCards[i]);
         }
+        shuffleCards();
 
+    }
+    public void shuffleCards(){
         Collections.shuffle(drawPile);
 
     }
-
-
     public ChanceCard getCard(){
-        // Pick up card
+        // Turn pile and shuffle if needed
         if (drawPile.isEmpty()){
-            drawPile.clone(discardPile)discardPile;
+            drawPile.addAll(discardPile);
+            discardPile.clear();
+            shuffleCards();
+
         }
+         // Pick up card
         ChanceCard cardPickedUp = drawPile.get(0);
 
-        // Move card to discard 0 if not "Get out of jail" (Remember to add to discard when played)
+        // Move card to discard if not "Get out of jail" (Remember to add to discard when played)
         if (!drawPile.get(0).equals(allCards[0])){
-            discardPile.add(0, drawPile.get(0));
+            discardPile.add(drawPile.get(0));
         }
         // Removing the card from drawPile
         drawPile.remove(0);
 
-        return cardPickedUp;
+        return cardPickedUp;  // Pick up card
+
     }
 
-    // Should actions be dealt with here to ease the job for game and UIManager?
-    // Switch statement for allCards could call "move" and "reward" methods in game, and/or UIManager
+    public void useCard(){
+        // Maybe let cardManager do some work, could use move, show and pay in game/UIManager?
+
+    }
 }

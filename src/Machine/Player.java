@@ -1,7 +1,7 @@
 package Machine;
 
 public class Player {
-    private int position, money;
+    private int position, previousPos, money;
     private String name;
     private boolean inPrison = false, getOutOfPrison = false, passedStart = false;
 
@@ -17,7 +17,9 @@ public class Player {
     }
 
     public void move(int diceRoll) {
-        // When making movements: Use getNextSquare
+        // Store old position
+        previousPos = position;
+        // When making movements: Use getNextSquareIndex
         position += diceRoll;
         // Check for out of bounds and passedStart.
         if (position == 24) {
@@ -29,12 +31,16 @@ public class Player {
 
     }
 
-    private int getNextSquare() {
-        int nextPosition = position + 1;
-        if (nextPosition == 24) {
-            nextPosition = 0;
+    public int getNextSquareIndex() {
+        int nextSquare = previousPos + 1;
+        if (nextSquare == 24) {
+            nextSquare = 0;
         }
-        return nextPosition;
+        return nextSquare;
+    }
+
+    public int getPreviousPos() {
+        return previousPos;
     }
 
     public int getMoney() {

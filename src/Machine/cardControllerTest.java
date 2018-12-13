@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ChanceControllerTest {
+class cardControllerTest {
     cardController croupier = new cardController();
     ArrayList<ChanceCard> drawPile = croupier.drawPile;
     ArrayList<ChanceCard> discardPile = croupier.discardPile;
@@ -30,7 +30,6 @@ class ChanceControllerTest {
         }
         System.out.println("\nNow the drawPile (shuffled):" + printDrawPile);
 
-        assertFalse(drawPile.equals(allCards));
         assertEquals(drawPile.size(), allCards.length);
 
     }
